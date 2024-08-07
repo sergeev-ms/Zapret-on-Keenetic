@@ -96,7 +96,7 @@ ln -fs /opt/zapret/init.d/sysv/zapret /opt/etc/init.d/S90-zapret
 nano /opt/zapret/init.d/sysv/zapret
 ```
 
-Добавляем PATH и WS_USER под словами END INIT INFO
+Добавляем PATH и WS_USER под словами END INIT INFO (После как добавили нажимаем CTRL+X, затем Y, затем enter и так везде где требуется вставка)
 ```
 
 PATH=/opt/sbin:/opt/bin:/opt/usr/sbin:/opt/usr/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -156,16 +156,55 @@ exit 0
 chmod +x /opt/etc/init.d/S00fix
 ```
 
+Правим конфиг Zapret.
+```
+nano /opt/zapret/config
+```
+
+Очищаем весь код удерживая CTRL+K, пока не станет пусто и вставляем код ниже.
+```
+WS_USER=nobody
+FWTYPE=iptables
+SET_MAXELEM=522288
+IPSET_OPT="hashsize 262144 maxelem $SET_MAXELEM"
+IP2NET_OPT4="--prefix-length=22-30 --v4-threshold=3/4"
+IP2NET_OPT6="--prefix-length=56-64 --v6-threshold=5"
+AUTOHOSTLIST_RETRANS_THRESHOLD=3
+AUTOHOSTLIST_FAIL_THRESHOLD=3
+AUTOHOSTLIST_FAIL_TIME=60
+AUTOHOSTLIST_DEBUGLOG=0
+MDIG_THREADS=30
+GZIP_LISTS=1
+MODE=nfqws
+MODE_HTTP=0
+MODE_HTTP_KEEPALIVE=0
+MODE_HTTPS=1
+MODE_QUIC=1
+MODE_FILTER=autohostlist
+DESYNC_MARK=0x40000000
+DESYNC_MARK_POSTNAT=0x20000000
+NFQWS_OPT_DESYNC="--dpi-desync=fake,disorder2 --dpi-desync-ttl=3 --dpi-desync-fooling=md5sig"
+NFQWS_OPT_DESYNC_HTTP=""
+NFQWS_OPT_DESYNC_HTTPS=""
+NFQWS_OPT_DESYNC_HTTP6=""
+NFQWS_OPT_DESYNC_HTTPS6=""
+NFQWS_OPT_DESYNC_QUIC="--dpi-desync=fake --dpi-desync-repeats=6"
+NFQWS_OPT_DESYNC_QUIC6=""
+TPWS_OPT="--hostspell=HOST --split-http-req=method --split-pos=3 --oob"
+FLOWOFFLOAD=donttouch
+IFACE_WAN=ppp0
+INIT_APPLY_FW=1
+DISABLE_IPV6=1
+
+```
+
 Ну вот и все. Перезагружаем и проверяем.
 ```
 reboot
 ```
 
 P.S.:
-Поправить конфиг zapret'а:
-```
-nano /opt/zapret/config
-```
+
 
 Заменяем весь текст если будут проблемы
 ```
