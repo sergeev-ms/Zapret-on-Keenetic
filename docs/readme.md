@@ -198,6 +198,22 @@ DISABLE_IPV6=1
 
 ```
 
+Далее выбор за вами, если необходимо обойти только ютуб то переходим к (zapret-hosts-user.txt)
+```
+nano /opt/zapret/ipset/zapret-hosts-user.txt
+```
+
+Заменяем строку на 5 доменов ютуба
+```
+www.youtube.com
+youtu.be
+googlevideo.com
+ytimg.com
+nhacmp3youtube.com
+```
+
+https://github.com/nikrays/Zapret-on-Keenetic/blob/master/docs/zapret-hosts-user.txt
+
 Ну вот и все. Перезагружаем и проверяем.
 ```
 reboot
