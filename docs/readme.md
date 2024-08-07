@@ -1,3 +1,5 @@
+[README от разработчика](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/docs/readme.txt)
+
 Настройка zapret от bol-van на Keentic
 Инструкция от @nik_pushistov. 07.08.2024
 
