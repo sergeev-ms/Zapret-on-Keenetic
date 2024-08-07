@@ -1,4 +1,3 @@
-```
 www.youtube.com
 youtu.be
 googlevideo.com
@@ -137477,5 +137476,3 @@ ad.doubleclick.net
 adservice.google.com
 buybeauty.com.ua
 static.doubleclick.net
-
-```
