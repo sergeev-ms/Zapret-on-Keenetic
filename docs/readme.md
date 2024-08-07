@@ -98,8 +98,10 @@ nano /opt/zapret/init.d/sysv/zapret
 
 Добавляем PATH и WS_USER под словами END INIT INFO
 ```
+
 PATH=/opt/sbin:/opt/bin:/opt/usr/sbin:/opt/usr/bin:/usr/sbin:/usr/bin:/sbin:/bin
 WS_USER=nobody
+
 ```
 
 Создаем небольшой скрипт, чтобы Keenetic не забывал правила
