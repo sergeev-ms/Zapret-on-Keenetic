@@ -34,7 +34,7 @@ cd /opt/tmp
 git clone --depth=1 https://github.com/bol-van/zapret.git
 ```
 
-Переходим в каталог zapret и выполняем скрипт:
+Переходим в каталог Zapret и выполняем скрипт:
 ```
 cd zapret
 ./install_easy.sh
@@ -84,7 +84,7 @@ n
 rm -rf /opt/tmp/zapret
 ```
 
-Теперь сделаем, что бы запрет стартовал при запуски Keenetic.
+Теперь автозапуск Zapret при включении роутера.
 ```
 ln -fs /opt/zapret/init.d/sysv/zapret /opt/etc/init.d/S90-zapret
 ```
@@ -94,7 +94,7 @@ ln -fs /opt/zapret/init.d/sysv/zapret /opt/etc/init.d/S90-zapret
 nano /opt/zapret/init.d/sysv/zapret
 ```
 
-Добавляем PATH и WS_USER под словами END INIT INFO (После как добавили нажимаем CTRL+X, затем Y, затем enter и так везде где требуется вставка)
+Добавляем PATH и WS_USER под строкой END INIT INFO (После как добавили нажимаем CTRL+X, затем Y, затем enter и так везде где требуется вставка)
 ```
 
 PATH=/opt/sbin:/opt/bin:/opt/usr/sbin:/opt/usr/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -102,7 +102,7 @@ WS_USER=nobody
 
 ```
 
-Создаем небольшой скрипт, чтобы Keenetic не забывал правила
+Создаем небольшой скрипт, чтобы роутер не забывал правила
 ```
 nano /opt/etc/ndm/netfilter.d/000-zapret.sh
 ```
@@ -215,7 +215,7 @@ nhacmp3youtube.com
 reboot
 ```
 
-Проверяем ютуб на каком нибудь 8K ролике!
+Проверяем ютуб на каком нибудь 8K ролике! Между прочим даже с таким способом будет автоматический обход и других сайтов, но немного иначе.
 
 Альтенативный способ: (В данный момент находимся на этом этапе, файл закрываем CTRL+X N)
 ```
