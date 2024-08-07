@@ -198,12 +198,12 @@ DISABLE_IPV6=1
 
 ```
 
-Далее выбор за вами, если необходимо обойти только ютуб то переходим к (zapret-hosts-user.txt)
+Далее выбор за вами, если необходимо обойти только ютуб то переходим к (zapret-hosts-user.txt) в ином случае, переходим альтернативному способу
 ```
 nano /opt/zapret/ipset/zapret-hosts-user.txt
 ```
 
-Заменяем строку на 5 доменов ютуба
+Заменяем строку на 5 доменов ютуба и сохраняем.
 ```
 www.youtube.com
 youtu.be
@@ -212,58 +212,36 @@ ytimg.com
 nhacmp3youtube.com
 ```
 
-https://github.com/nikrays/Zapret-on-Keenetic/blob/master/docs/zapret-hosts-user.txt
-
-Ну вот и все. Перезагружаем и проверяем.
+Перезагружаемся командой reboot.
 ```
 reboot
 ```
 
-P.S.:
+Проверяем ютуб на каком нибудь 8K ролике!
 
-
-Заменяем весь текст если будут проблемы
-```
-MODE_HTTP=1
-MODE_HTTP_KEEPALIVE=0
-MODE_HTTPS=1
-MODE_QUIC=1
-MODE_FILTER=hostlist
-NFQWS_OPT_DESYNC="--dpi-desync=fake,disorder2 --dpi-desync-ttl=3 --dpi-desync-fooling=badsum"
-NFQWS_OPT_DESYNC_QUIC="--dpi-desync=fake"
-```
-
-Обход замедления ютуб:
-Хост лист (zapret-hosts-user.txt)
+Альтенативный способ: (В данный момент вам необходимо также открыть (zapret-hosts-user.txt)
 ```
 nano /opt/zapret/ipset/zapret-hosts-user.txt
 ```
 
-Автоконфиг:
+И вставить все строки с доменами попавшие под блокировку РКН из файла по ссылке ниже
+[zapret-hosts-user.txt](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/docs/zapret-hosts-user.txt)
+
+Перезагружаемся командой reboot.
+```
+reboot
+```
+
+Проверяем инстаграм на телефоне, торренты, тритеры и прочую запрещенку)
+
+P.S.:
+
+Автоконфиг находится по адресу (Сюда идет пополнение доменов на те к которым вы пытаетесь достучаться, например рутор, чуть позже он автоматически туда попадает):
 ```
 nano /opt/zapret/ipset/zapret-hosts-auto.txt
 ```
 
-Вставить домены ниже
-```
-www.youtube.com
-youtu.be
-googlevideo.com
-ytimg.com
-nhacmp3youtube.com
-```
-
-Соответственно, после добавления нужно запустить следующие скрипты:
-```
-/opt/zapret/ipset/clear_lists.sh
-```
-
-```
-/opt/zapret/ipset/get_user.sh
-/opt/zapret/ipset/get_config.sh
-```
-
-И можно перезапустить Zapret
+Zapret можно перезапустить
 ```
 /opt/zapret/init.d/sysv/zapret restart_daemons
 ```
@@ -273,3 +251,4 @@ nhacmp3youtube.com
 /opt/etc/init.d/S90-zapret restart
 ```
 
+Но лучше reboot, особенно если вносили изменения в config
