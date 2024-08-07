@@ -1,7 +1,5 @@
 [README от разработчика](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/docs/readme.txt)
 
-
-
 Настройка zapret от bol-van на Keentic
 Инструкция от @nik_pushistov. 07.08.2024
 
@@ -219,12 +217,12 @@ reboot
 
 Проверяем ютуб на каком нибудь 8K ролике!
 
-Альтенативный способ: (В данный момент вам необходимо также открыть (zapret-hosts-user.txt)
+Альтенативный способ: (В данный момент находимся на этом этапе, файл закрываем CTRL+X N)
 ```
 nano /opt/zapret/ipset/zapret-hosts-user.txt
 ```
 
-И вставить все строки с доменами попавшие под блокировку РКН из файла по ссылке ниже
+Качаем файл по ссылке ниже с доменами или открываем в RAW и копируем по пути на флэшку файл целиком, либо открываем файл и вставляем с заменой все строки opkg\zapret\ipset\zapret-hosts-user.txt
 [zapret-hosts-user.txt](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/docs/zapret-hosts-user.txt)
 
 Перезагружаемся командой reboot.
@@ -251,4 +249,4 @@ Zapret можно перезапустить
 /opt/etc/init.d/S90-zapret restart
 ```
 
-Но лучше reboot, особенно если вносили изменения в config
+Но лучше reboot, особенно если вносили изменения в config.
