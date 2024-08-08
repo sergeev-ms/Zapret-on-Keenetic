@@ -163,7 +163,6 @@ nano /opt/zapret/config
 
 Очищаем весь код удерживая CTRL+K, пока не станет пусто и вставляем код ниже.
 ```
-WS_USER=nobody
 FWTYPE=iptables
 SET_MAXELEM=522288
 IPSET_OPT="hashsize 262144 maxelem $SET_MAXELEM"
@@ -176,14 +175,14 @@ AUTOHOSTLIST_DEBUGLOG=0
 MDIG_THREADS=30
 GZIP_LISTS=1
 MODE=nfqws
-MODE_HTTP=0
+MODE_HTTP=1
 MODE_HTTP_KEEPALIVE=0
 MODE_HTTPS=1
 MODE_QUIC=1
 MODE_FILTER=autohostlist
 DESYNC_MARK=0x40000000
 DESYNC_MARK_POSTNAT=0x20000000
-NFQWS_OPT_DESYNC="--dpi-desync=fake,disorder2 --dpi-desync-ttl=3 --dpi-desync-fooling=md5sig"
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=2 --dpi-desync-split-pos=1 --wssize 1:6 --dpi-desync-fooling=md5sig"
 NFQWS_OPT_DESYNC_HTTP=""
 NFQWS_OPT_DESYNC_HTTPS=""
 NFQWS_OPT_DESYNC_HTTP6=""
