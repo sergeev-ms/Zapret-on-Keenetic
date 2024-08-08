@@ -237,7 +237,7 @@ reboot
 
 Автоподбор параметров, у каждого могут быть индивидуальными
 ```
-/opt/zapret/blockcheck.sh
+/opt/zapret/blockcheck.sh | tee /opt/zapret/blockcheck.txt
 ```
 
 P.S.:
