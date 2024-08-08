@@ -278,7 +278,7 @@ Zapret можно перезапустить
 Разные сайты могут быть заблокированы по-разному, нужно искать такую технику, которая работает на большинстве.
 Чтобы записать вывод blockcheck.sh в файл, выполните : ./blockcheck.sh | tee /tmp/blockcheck.txt
 ```
-/opt/zapret/blockcheck.sh | tee /tmp/blockcheck.txt
+/opt/zapret/blockcheck.sh | tee /opt/zapret/blockcheck.txt
 ```
 
 Проанализируйте какие методы дурения DPI работают, в соответствии с ними настройте /opt/zapret/config.
