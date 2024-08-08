@@ -1,5 +1,7 @@
 [README от разработчика](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/docs/readme.txt)
 
+Инструкция в процессе доработки..
+
 Настройка zapret от bol-van на Keenetic
 Инструкция от @nik_pushistov. 07.08.2024
 
