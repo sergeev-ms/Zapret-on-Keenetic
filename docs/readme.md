@@ -235,10 +235,28 @@ reboot
 
 Проверяем инстаграм на телефоне, торренты и прочую запрещенку)
 
-Цена вопроса 0 рублей.
 
-Если все такие не заработало, открываем снова конфиг
 
+Если все не заработал, открываем снова конфиг
+```
+nano /opt/zapret/config
+```
+
+Обращаем внимание на строку:
+```
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=2 --dpi-desync-split-pos=1 --wssize 1:6 --dpi-desync-fooling=md5sig"
+```
+
+Можно попробовать менять значение ttl от 1 до 12 или же сменить значение на split2 на disorber2 ниже несколько примеров:
+```
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=badsum"
+```
+```
+NFQWS_OPT_DESYNC="--dpi-desync=split2"
+```
+```
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=badsum"
+```
 
 Автоподбор параметров, у каждого могут быть индивидуальными
 ```
