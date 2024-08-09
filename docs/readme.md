@@ -249,16 +249,22 @@ NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=
 
 Можно попробовать менять значение ttl от 1 до 12 или же сменить значения dpi-desync с split2 на disorber2 ниже несколько примеров:
 ```
+NFQWS_OPT_DESYNC="--dpi-desync=split2"
+```
+```
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=2 --dpi-desync-fooling=badsum"
+```
+```
 NFQWS_OPT_DESYNC="--dpi-desync=fake,disorder2 --dpi-desync-ttl=3 --dpi-desync-fooling=badsum"
 ```
 ```
 NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=badsum"
 ```
 ```
-NFQWS_OPT_DESYNC="--dpi-desync=split2"
-```
-```
 NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=badsum"
+```
+```
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=md5sig"
 ```
 
 После подбора перезагружаемся, проверяем и так пока не заработает как надо.
