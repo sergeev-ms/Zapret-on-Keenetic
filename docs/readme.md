@@ -279,6 +279,10 @@ nano /opt/zapret/ipset/zapret-hosts-auto.txt
 ```
 exec sh
 ```
+Получить новые данные конфига
+```
+/opt/zapret/ipset/get_config.sh
+```
 
 Zapret можно перезапустить
 ```
