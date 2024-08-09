@@ -247,7 +247,7 @@ nano /opt/zapret/config
 NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=2 --dpi-desync-split-pos=1 --wssize 1:6 --dpi-desync-fooling=md5sig"
 ```
 
-Можно попробовать менять значение ttl от 1 до 12 или же сменить значение на split2 на disorber2 ниже несколько примеров:
+Можно попробовать менять значение ttl от 1 до 12 или же сменить значения dpi-desync с split2 на disorber2 ниже несколько примеров:
 ```
 NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=badsum"
 ```
@@ -257,6 +257,8 @@ NFQWS_OPT_DESYNC="--dpi-desync=split2"
 ```
 NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=badsum"
 ```
+
+После подбора перезагружаемся, проверяем и так пока не заработает как надо.
 
 Автоподбор параметров, у каждого могут быть индивидуальными
 ```
