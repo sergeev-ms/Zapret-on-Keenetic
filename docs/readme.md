@@ -184,14 +184,9 @@ MODE_QUIC=1
 MODE_FILTER=autohostlist
 DESYNC_MARK=0x40000000
 DESYNC_MARK_POSTNAT=0x20000000
-NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=2 --dpi-desync-split-pos=1 --wssize 1:6 --dpi-desync-fooling=md5sig"
-NFQWS_OPT_DESYNC_HTTP=""
-NFQWS_OPT_DESYNC_HTTPS=""
-NFQWS_OPT_DESYNC_HTTP6=""
-NFQWS_OPT_DESYNC_HTTPS6=""
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=badsum"
 NFQWS_OPT_DESYNC_QUIC="--dpi-desync=fake --dpi-desync-repeats=6"
-NFQWS_OPT_DESYNC_QUIC6=""
-TPWS_OPT="--hostspell=HOST --split-http-req=method --split-pos=3 --oob"
+TPWS_OPT="--hostspell=HOST --tlsrec=sni --split-pos=1 --oob --disorder"
 FLOWOFFLOAD=donttouch
 IFACE_WAN=ppp0
 INIT_APPLY_FW=1
@@ -244,7 +239,7 @@ nano /opt/zapret/config
 
 Обращаем внимание на строку:
 ```
-NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=2 --dpi-desync-split-pos=1 --wssize 1:6 --dpi-desync-fooling=md5sig"
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=badsum"
 ```
 
 Можно попробовать менять значение ttl от 1 до 12 или же сменить значения dpi-desync с split2 на disorber2 ниже несколько примеров:
@@ -261,10 +256,13 @@ NFQWS_OPT_DESYNC="--dpi-desync=fake,disorder2 --dpi-desync-ttl=3 --dpi-desync-fo
 NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=badsum"
 ```
 ```
-NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=badsum"
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=3 --dpi-desync-fooling=badsum"
 ```
 ```
 NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=md5sig"
+```
+```
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=2 --dpi-desync-split-pos=1 --wssize 1:6 --dpi-desync-fooling=md5sig"
 ```
 
 После подбора перезагружаемся, проверяем и так пока не заработает как надо.
