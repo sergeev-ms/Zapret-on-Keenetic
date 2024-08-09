@@ -272,6 +272,11 @@ P.S.:
 nano /opt/zapret/ipset/zapret-hosts-auto.txt
 ```
 
+Удаленное подключение по ssh в консоли вводим:
+```
+exec sh
+```
+
 Zapret можно перезапустить
 ```
 /opt/zapret/init.d/sysv/zapret restart_daemons
