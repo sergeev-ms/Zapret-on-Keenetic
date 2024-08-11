@@ -1,14 +1,23 @@
-# [README принципа работы от разработчика](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/docs/readme.txt)
+## [README принципа работы от разработчика](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/docs/readme.txt)
 
-# Инструкция в процессе доработки..
+## Инструкция в процессе доработки..
 
 Настройка Zapret от bol-van на Keenetic от [@nik](https://t.me/nik_pushistov)
 
-## [Установка системы пакетов репозитория Entware на Keenetic в USB-накопитель](https://help.keenetic.com/hc/ru/articles/360021214160-%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D1%8B-%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%BE%D0%B2-%D1%80%D0%B5%D0%BF%D0%BE%D0%B7%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F-Entware-%D0%BD%D0%B0-USB-%D0%BD%D0%B0%D0%BA%D0%BE%D0%BF%D0%B8%D1%82%D0%B5%D0%BB%D1%8C)
+### Подготовка
 
+(опционально) Рекомендуется отключить провайдерский DNS на маршрутизаторе и [настроить использование DoT/DoH](https://help.keenetic.com/hc/ru/articles/360007687159).
+
+Установить entware на маршрутизатор по инструкции [на встроенную память роутера](https://help.keenetic.com/hc/ru/articles/360021888880) или [на USB-накопитель](https://help.keenetic.com/hc/ru/articles/360021214160).
+
+Через web-интерфейс Keenetic установить пакеты **Протокол IPv6** и **Модули ядра подсистемы Netfilter**.
+
+Все дальнейшие команды выполняются не в cli роутера, а **в среде entware**.
 Подключение по SSH к роутеру через "putty", 192.168.1.1:22.
 
 Далее левой кнопкой мыши нажимая на квадратики копируем код, а правой вставляем в putty.
+
+## Установка
 
 Логин: 
 ```
