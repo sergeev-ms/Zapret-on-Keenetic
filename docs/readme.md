@@ -321,9 +321,9 @@ ytimg.com
 nhacmp3youtube.com
 ```
 
-Перезагружаемся командой reboot.
+На этом настройка Zapret роутере завершена и можно запускать в работу NFQWS и проверять работоспособность с помощью команды:
 ```
-reboot
+/opt/zapret/init.d/sysv/zapret start
 ```
 
 Проверяем ютуб на каком нибудь 8K ролике! Между прочим даже с таким способом будет автоматический обход и других сайтов, но немного иначе.
@@ -377,6 +377,8 @@ NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooli
 ```
 NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=2 --dpi-desync-split-pos=1 --wssize 1:6 --dpi-desync-fooling=md5sig"
 ```
+
+После этого исполняем все что ниже и так по кругу, пока не добьетесь результата
 
 Получить новые данные списка хостов
 ```
