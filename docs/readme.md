@@ -37,25 +37,26 @@ cd /opt/tmp
 git clone --depth=1 https://github.com/bol-van/zapret.git
 ```
 
-## <details>
-    <summary>Если выдает ошибку -  fatal: could not create leading directories of 'zapret/.git' - это сломали утилиту git, тогда делаем как указано под спойлером</summary>
+<details>
+  <summary>Если выдает ошибку -  fatal: could not create leading directories of 'zapret/.git' - это сломали утилиту git, тогда делаем как тут</summary>
 
-    1. Переходим https://github.com/bol-van/zapret.git, скачайте zip архив нажатием на code далее download zip
-    2. Далее забрасываем архив через интерфейс роутера по пути: Приложения>флэшка>папка opkg>папка tmp>вверху "загрузить файл в выбранную папку, такэе это можно сдлеать через SMB протокол, если вы активировали его заранее
-    3. Открываем putty, авторизуемся
-    4. Вводим
-       ```
-       cd /opt/tmp
-       unzip zapret-master.zip
-       ```
-       ```
-       cd zapret-master
-       ```
-       ```
-       sh install_easy.sh
-       ```
-    5. Пошел процесс, далее по инструкции..
-
+  ```
+  1. Переходим https://github.com/bol-van/zapret.git, скачайте zip архив нажатием на code далее download zip
+  2. Далее забрасываем архив через интерфейс роутера по пути: Приложения>флэшка>папка opkg>папка tmp>вверху "загрузить файл в выбранную папку, такэе это можно сдлеать через SMB протокол, если вы активировали его заранее
+  3. Открываем putty, авторизуемся
+  4. Вводим
+     ```bash
+     cd /opt/tmp
+     unzip zapret-master.zip
+     ```
+     ```shell
+     cd zapret-master
+     ```
+     ```
+     sh install_easy.sh
+     ```
+  5. Пошел процесс, далее по инструкции..
+  ```
 </details>
 
 Переходим в каталог Zapret и выполняем скрипт:
