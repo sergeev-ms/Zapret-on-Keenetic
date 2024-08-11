@@ -48,8 +48,10 @@ git clone --depth=1 https://github.com/bol-van/zapret.git
      ```bash
      cd /opt/tmp
      unzip zapret-master.zip
+     ```
      ```shell
      cd zapret-master
+     ```
      ```
      sh install_easy.sh
      ```
