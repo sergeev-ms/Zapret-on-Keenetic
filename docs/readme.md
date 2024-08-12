@@ -63,7 +63,7 @@ cd /opt/tmp
 git clone --depth=1 https://github.com/bol-van/zapret.git
 ```
 
-## <details>
+# <details>
    <summary>Если выдает ошибку -  fatal: could not create leading directories of 'zapret/.git', откройте этот раскрывающий список, в ином случае, следуйте инструкции ниже</summary>
 
   1. Переходим https://github.com/bol-van/zapret.git, скачайте zip архив нажатием на code далее download zip
