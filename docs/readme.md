@@ -407,7 +407,7 @@ NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=
 
 После этого исполняем все что ниже и так по кругу, пока не добьетесь результата
 
-Очистка таблицы
+Очистка таблицы ip адресов
 ```
 /opt/zapret/ipset/clear_lists.sh
 ```
