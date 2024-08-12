@@ -178,7 +178,7 @@ nano /opt/etc/init.d/S00fix
 ```
 
 Вставляем весь текст
-```
+```shell
 #!/bin/sh
 start() {
     echo 0 > /proc/sys/net/netfilter/nf_conntrack_checksum
@@ -212,7 +212,7 @@ nano /opt/zapret/config
 ```
 
 Очищаем весь код удерживая CTRL+K, пока не станет пусто и вставляем код ниже, пока не сохраняем, читаем дальше (Конфиг тестировался на Ростелеком, Краснодарский край, вам может не подойти, поэтому ниже расскажу про подбор параметров)
-```
+```bash
 # this file is included from init scripts
 # change values here
 
