@@ -1,8 +1,6 @@
 ## [README принципа работы от разработчика](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/docs/readme.txt)
 
-## Инструкция в процессе доработки..
-
-Подробная инструкция настройки репозитория [Zapret](https://github.com/bol-van/zapret) от [bol-van](https://github.com/bol-van) на Keenetic от [@nik](https://t.me/nik_pushistov)
+# Подробная инструкция настройки репозитория [Zapret](https://github.com/bol-van/zapret) от [bol-van](https://github.com/bol-van) на Keenetic от [@nik](https://t.me/nik_pushistov)
 
 ## Краткое описание
 
