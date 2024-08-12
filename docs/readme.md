@@ -390,7 +390,7 @@ nano /opt/zapret/ipset/zapret-hosts-user.txt
 ```
 
 ### Качаем файл по ссылке ниже с доменами или открываем в RAW и копируем по пути на флэшку файл целиком, либо открываем файл и вставляем с заменой все строки opkg\zapret\ipset\zapret-hosts-user.txt
-[zapret-hosts-user.txt](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/docs/zapret-hosts-user.txt)
+[zapret-hosts-user.txt](https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/docs/zapret-hosts-user.txt)
 
 ### Перезагружаемся командой reboot.
 ```shell
