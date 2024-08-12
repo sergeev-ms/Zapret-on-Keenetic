@@ -64,7 +64,7 @@ git clone --depth=1 https://github.com/bol-van/zapret.git
 ```
 
 ### <details>
-  <summary>Если выдает ошибку -  fatal: could not create leading directories of 'zapret/.git', откройте этот раскрывающий список, в ином случае, следуйте инструкции ниже</summary>
+   <summary>Если выдает ошибку -  fatal: could not create leading directories of 'zapret/.git', откройте этот раскрывающий список, в ином случае, следуйте инструкции ниже</summary>
 
   1. Переходим https://github.com/bol-van/zapret.git, скачайте zip архив нажатием на code далее download zip
   2. Далее выгружаем архив через интерфейс роутера по пути: Приложения>флэшка>папка opkg>папка tmp>вверху "загрузить файл в выбранную папку", также это можно сдлеать через SMB протокол, если вы активировали его заранее
@@ -82,7 +82,7 @@ git clone --depth=1 https://github.com/bol-van/zapret.git
      ```
   5. Пошел процесс, далее по инструкции..
 
-     </details>
+</details>
 
 ### Переходим в каталог Zapret и выполняем скрипт (если у вас до этого вышла ошибка, пункт пропускаем, вы уже это сделали, смотрим наже):
 ```shell
