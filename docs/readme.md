@@ -367,18 +367,19 @@ nano /opt/zapret/ipset/zapret-hosts-user.txt
 
 ### Заменяем строку на то, что ниже и сохраняем.
 ```bash
-youtube.com
-googlevideo.com
-ytimg.com
-youtu.be
 ggpht.com
+googleapis.com
+googleusercontent.com
+googlevideo.com
+gstatic.com
+nhacmp3youtube.com
+www.youtube.com
+youtu.be
+youtube.com
 youtubei.googleapis.com
 yt4.ggpht.com
+ytimg.com
 ytimg.l.google.com
-nhacmp3youtube.com
-googleusercontent.com
-googleapis.com
-gstatic.com
 ```
 
 ### На этом настройка Zapret роутере завершена и можно перезагружать:
