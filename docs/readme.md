@@ -16,7 +16,7 @@
 
 (рекомендуется) Keenetic Viva kn-1912 с 256мб ОЗУ и дороже.
 
-##### (не рекомендуется) Keenetic Extra, Viva с менее 256мб ОЗУ, увы софт кушает хорошо ОЗУ, могут быть зависания. (Позже сделаю специальный свежий хостлист, где будут только Youtube, Facebook, Instagram, twitter, rutor.info, rutracker.org (X) - это позволит значительно снизить нагрузку)
+(рекомендуется) Keenetic Extra, Viva с менее 256мб ОЗУ лучше использовать ограниченный свежий хостлист [хостлист](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/YFIT/zapret-hosts-user), где будут только Youtube, Facebook, Instagram, Twitter(X), rutor.info, rutracker.org - это позволит значительно снизить нагрузку с ОЗУ.
 
 (обязательно) Проверить, что установленны все пакеты под категорией OPKG в наборах компонентов в настройках.
 
@@ -360,7 +360,7 @@ IFACE_LAN=br0
 IFACE_LAN="br0 br1 ezcfg0"
 ```
 
-## (рекомендуется для роутеров с ОЗУ менее 256мб) Далее выбор за вами, если необходимо обойти только ютуб то переходим к (zapret-hosts-user.txt) в ином случае, переходим к альтернативному способу
+## Далее выбор за вами, если необходимо обойти только ютуб то переходим к (zapret-hosts-user.txt) в ином случае, переходим к альтернативному способу
 ```shell
 nano /opt/zapret/ipset/zapret-hosts-user.txt
 ```
@@ -381,20 +381,22 @@ yt4.ggpht.com
 ytimg.com
 ytimg.l.google.com
 ```
+#### Или можно добавить к ускорению Youtube еще и Facebook, Instagram, Twitter(X), rutor.info, rutracker.org, подойдет для роутеров Keentic с ОЗУ менее 256мб
+[zapret-hots-user.txt](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/YFIT/zapret-hosts-user)
 
 ### На этом настройка Zapret роутере завершена и можно перезагружать:
 ```shell
 reboot
 ```
 
-### Проверяем ютуб на каком нибудь 8K ролике! Между прочим даже с таким способом будет автоматический обход и других сайтов, но немного иначе.
+## Проверяем ютуб на каком нибудь 8K ролике! Между прочим даже с таким способом будет автоматический обход и других сайтов, но немного иначе.
 
-## (не рекомендуется для роутеров с ОЗУ менее 256мб) Альтенативный способ: (В данный момент находимся на этом этапе, файл закрываем CTRL+X N)
+## Альтенативный способ: (Не рекомендуется для роутеров с ОЗУ менее 256мб. В данный момент если находимся на этом этапе, файл закрываем CTRL+X N)
 ```shell
 nano /opt/zapret/ipset/zapret-hosts-user.txt
 ```
 
-### Качаем файл по ссылке ниже с доменами или открываем в RAW [zapret-hosts-user.txt](https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/docs/zapret-hosts-user.txt) и копируем по пути на флэшку файл целиком, либо открываем файл и вставляем с заменой все строки opkg\zapret\ipset\zapret-hosts-user.txt
+### Качаем файл по ссылке ниже с доменами [zapret-hosts-user.txt](https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/docs/zapret-hosts-user.txt) и копируем файл с заменой по пути opkg\zapret\ipset\zapret-hosts-user.txt
 [zapret-hosts-user.txt](https://github.com/nikrays/Zapret-on-Keenetic/blob/50b0e9fa87b7e2628dda4d7629d56d1d75277566/docs/zapret-hosts-user.txt)
 
 ### Перезагружаемся командой reboot.
@@ -402,7 +404,7 @@ nano /opt/zapret/ipset/zapret-hosts-user.txt
 reboot
 ```
 
-### Проверяем инстаграм на телефоне, торренты и прочую запрещенку)
+## Проверяем инстаграм на телефоне, торренты и прочую запрещенку)
 
 
 
