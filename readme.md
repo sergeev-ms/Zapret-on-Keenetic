@@ -35,8 +35,6 @@
 
 Далее левой кнопкой мыши нажимая на квадратики копируя код, а правой вставляем в putty.
 
-## Установка
-
 ### Логин: 
 ```shell
 root
@@ -47,23 +45,20 @@ root
 keenetic
 ```
 
-### Обновляем opkg пакеты:
+## Установка
+
+### 1. Обновляем opkg пакеты:
 ```shell
 opkg update
 ```
 
-### Устанавливаем пакеты:
+### 2. Устанавливаем пакеты:
 
 ```shell
 opkg install coreutils-sort curl git-http grep gzip ipset iptables kmod_ndms nano xtables-addons_legacy
 ```
 
-### Для начала узнаем имя внешнего сетевого интерфейса (WAN) на роутере. Его можно узнать воспользовавшись командой ifconfig, которая выведет все сетевые интерфейсы в системе. Просто находим тот интерфейс, у которого будет ваш внешний IP адрес. В моем случае – это ppp0, в вашем же, если у вам провайдер выдает адрес по статике или DHCP, eth3. Запоминаем.
-```shell
-ifconfig
-```
-
-### Переходим в tmp и скачиваем Zapret:
+### 3. Переходим в tmp и скачиваем Zapret:
 ```shell
 cd /opt/tmp
 git clone --depth=1 https://github.com/bol-van/zapret.git
@@ -90,72 +85,77 @@ git clone --depth=1 https://github.com/bol-van/zapret.git
 
 </details>
 
-### Переходим в каталог Zapret и выполняем скрипт (если у вас до этого вышла ошибка, пункт пропускаем, вы уже это сделали, смотрим наже):
+### 4. Переходим в каталог Zapret и выполняем скрипт (если у вас до этого вышла ошибка, пункт пропускаем, вы уже это сделали, смотрим наже):
 ```shell
 cd zapret
 ./install_easy.sh
 ```
 
-### Далее (будут спрашивать, 3 раза отвечаем Y затем enter, после каждого раза):
+### 5. Далее (будут спрашивать, 3 раза отвечаем Y затем enter, после каждого раза):
 ```shell
 y
 ```
 
-### Далее нажимаем ENTER, пока не увидим надпись press enter to continue, а затем снова жмем ENTER
+### 6. Далее нажимаем ENTER, пока не увидим надпись press enter to continue, а затем снова жмем ENTER
 
-### Удаляем ненужное.
+### 7. Удаляем ненужное.
 ```shell
 rm -rf /opt/tmp/zapret
 rm -rf /opt/tmp/zapret-master
 rm -rf /opt/tmp/zapret-master.zip
 ```
 
-### Теперь автозапуск Zapret при включении роутера.
+### 8. Теперь автозапуск Zapret при включении роутера.
 ```shell
 ln -fs /opt/zapret/init.d/sysv/zapret /opt/etc/init.d/S90-zapret
 ```
 
-### Загружаем готовый стартовый скрипт с dnsmasq внутри.
+### 9. Загружаем готовый стартовый скрипт с dnsmasq внутри.
 ```shell
 cd /opt/zapret/init.d/sysv
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret/init.d/sysv/zapret
 ```
 
-### Загружаем готовый скрипт, чтобы роутер не забывал правила.
+### 10. Загружаем готовый скрипт, чтобы роутер не забывал правила.
 ```shell
 cd /opt/etc/ndm/netfilter.d
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/etc/ndm/netfilter.d/000-zapret.sh
 ```
 
-### Исполняем
+### 11. Исполняем
 ```shell
 chmod +x /opt/etc/ndm/netfilter.d/000-zapret.sh
 ```
 
-### Загружаем готовый скрипт для перевода net.netfilter.nf_conntrack_checksum в 0.
+### 12. Загружаем готовый скрипт для перевода net.netfilter.nf_conntrack_checksum в 0.
 ```shell
 cd /opt/etc/init.d
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/etc/init.d/S00fix
 ```
 
-### Исполняем.
+### 13. Исполняем.
 ```shell
 chmod +x /opt/etc/init.d/S00fix
 ```
 
-### Загружаем готовый конфиг Zapret, подходит для большинста провайдеров (Тестировался на Ростелеком, ЮФО).
+### 14. Загружаем готовый конфиг Zapret, подходит для большинста провайдеров (Тестировался на Ростелеком, ЮФО).
 ```shell
 cd /opt/zapret
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret/config
 ```
 
-### Так как вы вставили мой конфиг, вы также перенесли несколько настроек а именно:
+#### Так как вы вставили мой конфиг, вы также перенесли несколько настроек а именно:
 ```bash
 IFACE_WAN=ppp0
 MODE_FILTER=autohostlist
 ```
 
-### Если у вас роутер с ОЗУ менее 256мб или авторизация у провайдера не pppoe, а динамика или статика по динамике, то правим конфиг Zapret, в ином случае, пропускаем шаги.
+#### Для начала узнаем имя внешнего сетевого интерфейса (WAN) на роутере. Его можно узнать воспользовавшись командой ifconfig, которая выведет все сетевые интерфейсы в системе. Просто находим тот интерфейс, у которого будет ваш внешний IP адрес. В моем случае – это ppp0, в вашем же, если у вам провайдер выдает адрес по статике или DHCP, eth3. Запоминаем.
+```shell
+ifconfig
+```
+
+#### Если у вас роутер с ОЗУ менее 256мб или авторизация у провайдера не pppoe, а динамика или статика по динамике, то правим конфиг Zapret, в ином случае, пропускаем шаги.
 ```shell
 nano /opt/zapret/config
 ```
@@ -186,25 +186,27 @@ IFACE_LAN="br0 br1 ezcfg0"
 
 Если закончили править, сохраняем CTRL+S, затем CTRL+X для выхода.
 
-### Если необходимо ускорить только youtube, загружаем.
+### 15. Далее выбираем, что будем ускорять:
+
+#### Если необходимо ускорить только youtube, загружаем.
 ```shell
 cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/youtube/zapret-hosts-user.txt
 ```
 
-### Если необходимо ускорить youtube и соц. сети f, y, t(x).
+#### Если необходимо ускорить youtube и соц. сети f, y, t(x).
 ```shell
 cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/yfit/zapret-hosts-user.txt
 ```
 
-### Если необходимо ускорить все что можно, то.
+#### Если необходимо ускорить все что можно, то.
 ```shell
 cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/blacklist-russia/zapret-hosts-user.txt
 ```
 
-### Перезагружаем entware(openwrt) командой ниже.
+### 16. Перезагружаем entware(openwrt) командой ниже.
 ```shell
 /opt/etc/init.d/rc.unslung restart
 ```
