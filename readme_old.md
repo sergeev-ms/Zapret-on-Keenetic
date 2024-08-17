@@ -1,0 +1,646 @@
+## [README принципа работы от разработчика>>](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/docs/readme.txt)
+
+# Подробная обновляемая [@nik](https://t.me/nik_pushistov) инструкция настройки репозитория [Zapret](https://github.com/bol-van/zapret) от [bol-van](https://github.com/bol-van) на Keenetic.
+
+## Краткое описание
+
+Автономное, без задействования сторонних серверов, средство противодействия DPI.
+Может помочь обойти замедления сайтов http(s), сигнатурный анализ tcp и udp протоколов,
+например с целью замедления YouTube.
+
+Существуют режимы обхода TPWS и NFQWS. Режим NFQWS имеет ряд преимуществ пред режимом TPWS. Больше параметров модификации TCP соединения на уровне пакетов. Реализуется через обработчик очереди NFQUEUE и raw сокеты, а также возможность модификации трафика по протоколу QUIC.
+
+### P.S. Это не VPN и не прокси, это средство для обмана (подмены) пакетов tcp и udp протокола, не режет скорость, повышается анонимность, а также не ломает то, что и так хорошо работало.
+
+## Технические требования
+
+(рекомендуется) Keenetic Viva kn-1912 с 256мб ОЗУ и дороже с наличием USB порта.
+
+(минимально) Keenetic Extra, Viva с менее 256мб ОЗУ лучше использовать ограниченный свежий [хостлист](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/YFIT/zapret-hosts-user), где будут только Youtube, F, I, T(X), Ror, Rer - это позволит значительно снизить нагрузку с ОЗУ.
+
+## Подготовка
+
+(обязательно) Проверить, что установленны все пакеты под категорией OPKG в наборах компонентов в настройках, также протокол IPv6 и Модули ядра подсистемы Netfilter (он появится в списке пакетов только после установки пакета "Протокол IPv6").
+
+(обязательно) Необходимо заменить в настройках роутера DNS-серверы провайдера на публичные. Прописываем IP адреса DNS - 8.8.8.8 и 77.88.8.8, и не забываем поставить галочку "игнорировать DNS предлагаемые провайдером интернета".
+
+(обязательно) [Установка системы пакетов репозитория Entware на USB-накопитель](https://help.keenetic.com/hc/ru/articles/360021214160). 
+Или не очень хороший метод [Установка OPKG Entware на встроенную память роутера](https://help.keenetic.com/hc/ru/articles/360021888880).
+
+(опционально) Можно настроить, но не обязательно, если совсем ничего не поможет. [Прокси-серверы DNS-over-TLS и DNS-over-HTTPS для шифрования DNS-запросов](https://help.keenetic.com/hc/ru/articles/360007687159).
+
+Все дальнейшие команды выполняются не в cli роутера, а **в среде entware**.
+
+### Подключение по SSH к роутеру через "putty", например если адрес вашего роутера 192.168.1.1 а порт 22 или 222 если активировали сервер SSH
+
+Далее левой кнопкой мыши нажимая на квадратики копируя код, а правой вставляем в putty.
+
+## Установка
+
+### Логин: 
+```shell
+root
+```
+
+### Пароль: 
+```shell
+keenetic
+```
+
+### Обновляем opkg пакеты:
+```shell
+opkg update
+```
+
+### Устанавливаем пакеты:
+
+```shell
+opkg install coreutils-sort curl git-http grep gzip ipset iptables kmod_ndms nano xtables-addons_legacy
+```
+
+### Для начала узнаем имя внешнего сетевого интерфейса (WAN) на роутере. Его можно узнать воспользовавшись командой ifconfig, которая выведет все сетевые интерфейсы в системе. Просто находим тот интерфейс, у которого будет ваш внешний IP адрес. В моем случае – это ppp0, в вашем же, если у вам провайдер выдает адрес по статике или DHCP, eth3.
+```shell
+ifconfig
+```
+
+### Переходим в tmp и скачиваем Zapret:
+```shell
+cd /opt/tmp
+git clone --depth=1 https://github.com/bol-van/zapret.git
+```
+
+<details>
+    <summary>Если выдает ошибку -  fatal: could not create leading directories of 'zapret/.git', откройте этот раскрывающий список, в ином случае, следуйте инструкции ниже</summary>
+
+  1. Переходим https://github.com/bol-van/zapret.git, скачайте zip архив нажатием на code далее download zip
+  2. Далее выгружаем архив через интерфейс роутера по пути: Приложения>флэшка>папка opkg>папка tmp>вверху "загрузить файл в выбранную папку", также это можно сдлеать через SMB протокол, если вы активировали его заранее
+  3. Открываем putty, авторизуемся
+  4. Вводим
+     ```shell
+     cd /opt/tmp
+     unzip zapret-master.zip
+     ```
+     ```shell
+     cd zapret-master
+     ```
+     ```shell
+     sh install_easy.sh
+     ```
+  5. Пошел процесс, далее по инструкции..
+
+</details>
+
+### Переходим в каталог Zapret и выполняем скрипт (если у вас до этого вышла ошибка, пункт пропускаем, вы уже это сделали, смотрим наже):
+```shell
+cd zapret
+./install_easy.sh
+```
+
+### Далее (будут спрашивать, 3 раза отвечаем Y затем enter, после каждого раза):
+```shell
+y
+```
+
+### Далее "select firewall type:" (Выбираем 1)
+```shell
+1
+```
+
+### Далее "enable ipv6 support?:" (Y)
+```shell
+y
+```
+
+### Далее "select mode:" (Выбираем 3)
+```shell
+3
+```
+
+### Далее нажимаем N, затем enter, конфиг поправим позже:
+```shell
+n
+```
+
+### Далее выбираем "wan interface:" (Например на keenetic giga kn-1011 с провайдером Ростелеком это ppp0, то есть если при настройки использовались учетные данные pppoe логин и пароль, в ином случае eth3)
+```shell
+18
+```
+
+### Дальше жмем Enter 3 раза
+
+### Далее "select filtering:" (Выбираем 4 вариант затем enter. Автохостлист, пригодится для автопополнения "замедленных" доменов)
+```shell
+4
+```
+
+### Далее press enter to continue (Нажимаем)
+
+### Удаляем ненужное.
+```shell
+rm -rf /opt/tmp/zapret
+rm -rf /opt/tmp/zapret-master
+rm -rf /opt/tmp/zapret-master.zip
+```
+
+### Теперь автозапуск Zapret при включении роутера.
+```shell
+ln -fs /opt/zapret/init.d/sysv/zapret /opt/etc/init.d/S90-zapret
+```
+
+### Правим стартовый скрипт
+```shell
+nano /opt/zapret/init.d/sysv/zapret
+```
+
+### Очищаем весь код удерживая CTRL+K, пока не станет пусто и вставляем код с необходимыми строками для успешной работы с протоком QUIC через NFQWS на роутера Keenetic, поэтому необходимо добавить маскарад на исходящий интерфейс WAN (После как добавили нажимаем CTRL+X, затем Y, затем enter и так везде где требуется вставка)
+```bash
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:		zapret
+# Required-Start:	$local_fs $network
+# Required-Stop:	$local_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+### END INIT INFO
+
+SCRIPT=$(readlink -f "$0")
+EXEDIR=$(dirname "$SCRIPT")
+ZAPRET_BASE=$(readlink -f "$EXEDIR/../..")
+. "$EXEDIR/functions"
+
+NAME=zapret
+DESC=anti-zapret
+
+do_start()
+{
+
+    if lsmod | grep "xt_multiport " &> /dev/null ;  then
+		echo "xt_multiport.ko is already loaded"
+    else
+        if insmod /lib/modules/$(uname -r)/xt_multiport.ko &> /dev/null; then
+			echo "iptable_raw.ko loaded"
+        else
+			echo "Cannot find xt_multiport.ko kernel module, aborting"
+			exit 1
+        fi
+	fi
+     
+	if lsmod | grep "xt_connbytes " &> /dev/null ;  then
+        echo "xt_connbytes.ko is already loaded"
+    else
+        if insmod /lib/modules/$(uname -r)/xt_connbytes.ko &> /dev/null; then
+			echo "xt_connbytes.ko loaded"
+        else
+			echo "Cannot find xt_connbytes.ko kernel module, aborting"
+			exit 1
+        fi
+	fi
+	
+	if lsmod | grep "xt_NFQUEUE " &> /dev/null ;  then
+        echo "xt_NFQUEUE.ko is already loaded"
+    else
+        if insmod /lib/modules/$(uname -r)/xt_NFQUEUE.ko &> /dev/null; then
+            echo "xt_NFQUEUE.ko loaded"
+        else
+            echo "Cannot find xt_NFQUEUE.ko kernel module, aborting"
+            exit 1
+        fi
+    fi		 
+
+	zapret_run_daemons
+	[ "$INIT_APPLY_FW" != "1" ] || { zapret_apply_firewall; }
+	for IFACE_N in $IFACE_WAN; do
+		iptables -t nat -A POSTROUTING -o $IFACE_N -j MASQUERADE
+    done
+}
+do_stop()
+{
+	zapret_stop_daemons
+	[ "$INIT_APPLY_FW" != "1" ] || zapret_unapply_firewall
+	for IFACE_N in $IFACE_WAN; do
+		iptables -t nat -D POSTROUTING -o $IFACE_N -j MASQUERADE
+	done
+}
+
+case "$1" in
+	start)
+		do_start
+		;;
+
+	stop)
+		do_stop
+		;;
+
+	restart)
+		do_stop
+		do_start
+		;;
+
+	start-fw|start_fw)
+		zapret_apply_firewall
+		;;
+	stop-fw|stop_fw)
+		zapret_unapply_firewall
+		;;
+
+	restart-fw|restart_fw)
+		zapret_unapply_firewall
+		for IFACE_N in $IFACE_WAN; do
+			iptables -t nat -D POSTROUTING -o $IFACE_N -j MASQUERADE
+		done
+			
+		zapret_apply_firewall
+		for IFACE_N in $IFACE_WAN; do
+			iptables -t nat -A POSTROUTING -o $IFACE_N -j MASQUERADE
+		done
+		;;
+	
+	start-daemons|start_daemons)
+		zapret_run_daemons
+		;;
+	stop-daemons|stop_daemons)
+		zapret_stop_daemons
+		;;
+	restart-daemons|restart_daemons)
+		zapret_stop_daemons
+		zapret_run_daemons
+		;;
+
+	reload-ifsets|reload_ifsets)	
+		zapret_reload_ifsets
+		;;
+	list-ifsets|list_ifsets)	
+		zapret_list_ifsets
+		;;
+	list-table|list_table)	
+		zapret_list_table
+		;;
+		
+  *)
+	N=/etc/init.d/$NAME
+	echo "Usage: $N {start|stop|restart|start-fw|stop-fw|restart-fw|start-daemons|stop-daemons|restart-daemons|reload-ifsets|list-ifsets|list-table}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
+```
+
+### Создаем небольшой скрипт, чтобы роутер не забывал правила
+```shell
+nano /opt/etc/ndm/netfilter.d/000-zapret.sh
+```
+
+### Вставляем весь текст
+```bash
+#!/bin/sh
+[ "$type" == "ip6tables" ] && exit 0
+[ "$table" != "mangle" ] && exit 0
+/opt/zapret/init.d/sysv/zapret restart-fw
+```
+
+### Исполняем
+```shell
+chmod +x /opt/etc/ndm/netfilter.d/000-zapret.sh
+```
+
+### Переводим net.netfilter.nf_conntrack_checksum в 0.
+```shell
+nano /opt/etc/init.d/S00fix
+```
+
+### Вставляем весь текст
+```bash
+#!/bin/sh
+start() {
+    echo 0 > /proc/sys/net/netfilter/nf_conntrack_checksum
+}
+stop() {
+    echo 1 > /proc/sys/net/netfilter/nf_conntrack_checksum
+}
+case "$1" in
+    'start')
+        start
+        ;;
+    'stop')
+        stop
+        ;;
+    *)
+        stop
+        start
+        ;;
+esac
+exit 0
+```
+
+### Исполняем
+```shell
+chmod +x /opt/etc/init.d/S00fix
+```
+
+### Правим конфиг Zapret.
+```shell
+nano /opt/zapret/config
+```
+
+### Очищаем весь код удерживая CTRL+K, пока не станет пусто и вставляем код ниже, пока не сохраняем, читаем дальше (Конфиг тестировался на Ростелеком, Краснодарский край, вам может не подойти, поэтому ниже расскажу про подбор параметров)
+```bash
+# this file is included from init scripts
+# change values here
+
+# can help in case /tmp has not enough space
+#TMPDIR=/opt/zapret/tmp
+
+# redefine user for zapret daemons. required on Keenetic
+WS_USER=nobody
+
+# override firewall type : iptables,nftables,ipfw
+FWTYPE=iptables
+
+# options for ipsets
+# maximum number of elements in sets. also used for nft sets
+SET_MAXELEM=522288
+# too low hashsize can cause memory allocation errors on low RAM systems , even if RAM is enough
+# too large hashsize will waste lots of RAM
+IPSET_OPT="hashsize 262144 maxelem $SET_MAXELEM"
+# dynamically generate additional ip. $1 = ipset/nfset/table name
+#IPSET_HOOK="/etc/zapret.ipset.hook"
+
+# options for ip2net. "-4" or "-6" auto added by ipset create script
+IP2NET_OPT4="--prefix-length=22-30 --v4-threshold=3/4"
+IP2NET_OPT6="--prefix-length=56-64 --v6-threshold=5"
+# options for auto hostlist
+AUTOHOSTLIST_RETRANS_THRESHOLD=3
+AUTOHOSTLIST_FAIL_THRESHOLD=3
+AUTOHOSTLIST_FAIL_TIME=60
+# 1 = debug autohostlist positives to ipset/zapret-hosts-auto-debug.log
+AUTOHOSTLIST_DEBUGLOG=0
+
+# number of parallel threads for domain list resolves
+MDIG_THREADS=30
+
+# ipset/*.sh can compress large lists
+GZIP_LISTS=1
+# command to reload ip/host lists after update
+# comment or leave empty for auto backend selection : ipset or ipfw if present
+# on BSD systems with PF no auto reloading happens. you must provide your own command
+# set to "-" to disable reload
+#LISTS_RELOAD="pfctl -f /etc/pf.conf"
+
+# override ports
+#HTTP_PORTS=80-81,85
+#HTTPS_PORTS=443,500-501
+#QUIC_PORTS=443,444
+
+# CHOOSE OPERATION MODE
+# MODE : nfqws,tpws,tpws-socks,filter,custom
+# nfqws : nfqws for dpi desync
+# tpws : tpws transparent mode
+# tpws-socks : tpws socks mode
+# filter : no daemon, just create ipset or download hostlist
+# custom : custom mode. should modify custom init script and add your own code
+MODE=nfqws
+# apply fooling to http
+MODE_HTTP=1
+# for nfqws only. support http keep alives. enable only if DPI checks for http request in any outgoing packet
+MODE_HTTP_KEEPALIVE=0
+# apply fooling to https
+MODE_HTTPS=1
+# apply fooling to quic
+MODE_QUIC=1
+# none,ipset,hostlist,autohostlist
+MODE_FILTER=autohostlist
+
+# CHOOSE NFQWS DAEMON OPTIONS for DPI desync mode. run "nfq/nfqws --help" for option list
+DESYNC_MARK=0x40000000
+DESYNC_MARK_POSTNAT=0x20000000
+NFQWS_OPT_DESYNC="--dpi-desync=fake,disorder2 --dpi-desync-split-pos=1 --dpi-desync-ttl=0 --dpi-desync-fooling=md5sig,badsum --dpi-desync-repeats=6 --dpi-desync-any-protocol --dpi-desync-cutoff=d4" 
+#NFQWS_OPT_DESYNC_HTTP=
+#NFQWS_OPT_DESYNC_HTTPS=
+#NFQWS_OPT_DESYNC_HTTP6=
+#NFQWS_OPT_DESYNC_HTTPS6=
+NFQWS_OPT_DESYNC_QUIC="--dpi-desync=fake,disorder2 --dpi-desync-repeats=6 --dpi-desync-ttl=0  --dpi-desync-any-protocol --dpi-desync-cutoff=d4 --dpi-desync-fooling=md5sig,badsum"
+#NFQWS_OPT_DESYNC_QUIC6=
+
+# CHOOSE TPWS DAEMON OPTIONS. run "tpws/tpws --help" for option list
+TPWS_OPT="--hostspell=HOST --tlsrec=sni --split-pos=1 --oob --disorder"
+
+# openwrt only : donttouch,none,software,hardware
+FLOWOFFLOAD=donttouch
+
+# openwrt: specify networks to be treated as LAN. default is "lan"
+#OPENWRT_LAN="lan lan2 lan3"
+# openwrt: specify networks to be treated as WAN. default wans are interfaces with default route
+#OPENWRT_WAN4="wan vpn"
+#OPENWRT_WAN6="wan6 vpn6"
+
+# for routers based on desktop linux and macos. has no effect in openwrt.
+# CHOOSE LAN and optinally WAN/WAN6 NETWORK INTERFACES
+# or leave them commented if its not router
+# it's possible to specify multiple interfaces like this : IFACE_LAN="eth0 eth1 eth2"
+# if IFACE_WAN6 is not defined it take the value of IFACE_WAN
+#IFACE_LAN=eth0
+IFACE_WAN=ppp0
+#IFACE_WAN6="ipsec0 wireguard0 he_net"
+
+# should start/stop command of init scripts apply firewall rules ?
+# not applicable to openwrt with firewall3+iptables
+INIT_APPLY_FW=1
+# firewall apply hooks
+#INIT_FW_PRE_UP_HOOK="/etc/firewall.zapret.hook.pre_up"
+#INIT_FW_POST_UP_HOOK="/etc/firewall.zapret.hook.post_up"
+#INIT_FW_PRE_DOWN_HOOK="/etc/firewall.zapret.hook.pre_down"
+#INIT_FW_POST_DOWN_HOOK="/etc/firewall.zapret.hook.post_down"
+
+# do not work with ipv4
+#DISABLE_IPV4=1
+# do not work with ipv6
+DISABLE_IPV6=0
+
+# select which init script will be used to get ip or host list
+# possible values : get_user.sh get_antizapret.sh get_combined.sh get_reestr.sh get_hostlist.sh
+# comment if not required
+GETLIST=
+
+```
+
+### Так как вы вставили мой конфиг, вы также перенесли одну индивидуальную настройку, а именно параметр:
+```bash
+IFACE_WAN=ppp0
+```
+
+### Прописываем интерфейс провайдера в строке IFACE_WAN=ваш интерфейс, например:
+```bash
+IFACE_WAN=eth3
+```
+
+Также можно прописать несколько используемых WAN интерфейсов через пробел, например:
+```bash
+IFACE_WAN="eth3 usb0"
+```
+
+### (опционально, надо проверить) Если необходимо направить трафик не на всю сеть, а например только гостевую сеть, vlan, опеределенный порт или l2tp, уберите решетку в #IFACE_LAN=eth0 и укажите 1 или несколько интерфейсов (узнать какой интерфейс за что отвечает, можно все той же командой ifconfig)
+```bash
+IFACE_LAN=br0
+```
+Или br0 - это бридж основной сети, br1 - vlan гостевой сети, ezcfg0 - частный VPN сервер IKEv2/IPsec и т.д.
+```bash
+IFACE_LAN="br0 br1 ezcfg0"
+```
+
+## Далее выбор за вами, если необходимо обойти только ютуб то переходим к (zapret-hosts-user.txt) в ином случае, переходим к альтернативному способу
+```shell
+nano /opt/zapret/ipset/zapret-hosts-user.txt
+```
+
+### Заменяем строку на то, что ниже и сохраняем.
+```bash
+ggpht.com
+googleapis.com
+googleusercontent.com
+googlevideo.com
+gstatic.com
+nhacmp3youtube.com
+www.youtube.com
+youtu.be
+youtube.com
+youtubei.googleapis.com
+yt4.ggpht.com
+ytimg.com
+ytimg.l.google.com
+```
+#### Или можно добавить к ускорению Youtube еще и F, I, T(X), Ror, Rer, подойдет для роутеров Keentic с ОЗУ менее 256мб
+[zapret-hots-user.txt](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/YFIT/zapret-hosts-user)
+
+### На этом настройка Zapret роутере завершена и можно перезагружать:
+```shell
+reboot
+```
+
+## Проверяем ютуб на каком нибудь 8K ролике! Между прочим даже с таким способом будет автоматический обход и других "очень медленных" сайтов, но немного иначе.
+
+## Альтенативный способ: (Не рекомендуется для роутеров с ОЗУ менее 256мб. В данный момент если находимся на этом этапе, файл закрываем CTRL+X N)
+```shell
+nano /opt/zapret/ipset/zapret-hosts-user.txt
+```
+
+### Качаем файл по ссылке ниже с доменами [zapret-hosts-user.txt](https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/docs/zapret-hosts-user.txt) и копируем файл с заменой по пути opkg\zapret\ipset\zapret-hosts-user.txt
+[zapret-hosts-user.txt](https://github.com/nikrays/Zapret-on-Keenetic/blob/50b0e9fa87b7e2628dda4d7629d56d1d75277566/docs/zapret-hosts-user.txt)
+
+### Перезагружаемся командой reboot.
+```shell
+reboot
+```
+
+## Проверяем наболевшие социальные сети и тд.)
+
+
+
+### Если не заработало, открываем снова конфиг
+```shell
+nano /opt/zapret/config
+```
+
+### Обращаем внимание на строку:
+```bash
+NFQWS_OPT_DESYNC="--dpi-desync=fake,disorder2 --dpi-desync-split-pos=1 --dpi-desync-ttl=0 --dpi-desync-fooling=md5sig,badsum --dpi-desync-repeats=6 --dpi-desync-any-protocol --dpi-desync-cutoff=d4" 
+```
+
+### Можно попробовать менять значение ttl от 0 до 12 или же сменить значения dpi-desync с split2 на disorber2 ниже несколько примеров:
+```bash
+NFQWS_OPT_DESYNC="--dpi-desync=split2"
+```
+```bash
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=2 --dpi-desync-fooling=badsum"
+```
+```bash
+NFQWS_OPT_DESYNC="--dpi-desync=fake,disorder2 --dpi-desync-ttl=3 --dpi-desync-fooling=badsum"
+```
+```bash
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=badsum"
+```
+```bash
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=3 --dpi-desync-fooling=badsum"
+```
+```bash
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=md5sig"
+```
+```bash
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=2 --dpi-desync-split-pos=1 --wssize 1:6 --dpi-desync-fooling=md5sig"
+```
+
+### После этого исполняем все что ниже и так по кругу, пока не добьетесь результата
+
+### Очистка таблицы ip адресов
+```shell
+/opt/zapret/ipset/clear_lists.sh
+```
+
+### Получить новые данные списка хостов
+```shell
+/opt/zapret/ipset/get_user.sh
+```
+### Получить новые данные конфига
+```shell
+/opt/zapret/ipset/get_config.sh
+```
+### Перезагрузить Zapret
+```shell
+/opt/zapret/init.d/sysv/zapret restart
+```
+
+### Также можно воспользоваться автоподбором. Автоподбор параметров, у каждого могут быть индивидуальными
+Следует прогнать blockcheck по нескольким замедленным сайтам и выявить общий характер замедленний.
+Разные сайты могут быть замедленны по-разному, нужно искать такую технику, которая работает на большинстве.
+Чтобы записать вывод blockcheck.sh в файл, выполните : ./blockcheck.sh | tee /tmp/blockcheck.txt
+```shell
+/opt/zapret/blockcheck.sh | tee /opt/zapret/blockcheck.txt
+```
+
+Проанализируйте какие методы дурения DPI работают, в соответствии с ними настройте /opt/zapret/config.
+
+Имейте в виду, что у провайдеров может быть несколько DPI или запросы могут идти через разные каналы
+по методу балансировки нагрузки. Балансировка может означать, что на разных ветках разные DPI или
+они находятся на разных хопах. Такая ситуация может выражаться в нестабильности работы обхода.
+Дернули несколько раз curl. То работает, то connection reset или редирект. blockcheck.sh выдает
+странноватые результаты. То split работает на 2-м. хопе, то на 4-м. Достоверность результата вызывает сомнения.
+В этом случае задайте несколько повторов одного и того же теста. Тест будет считаться успешным только,
+если все попытки пройдут успешно.
+
+При использовании autottl следует протестировать как можно больше разных доменов. Эта техника
+может на одних провайдерах работать стабильно, на других потребуется выяснить при каких параметрах
+она стабильна, на третьих полный хаос, и проще отказаться.
+
+Blockcheck имеет 3 уровня сканирования.
+Цель режима quick - максимально быстро найти хоть что-то работающее.
+standard дает возможность провести исследование как и на что реагирует DPI в плане методов обхода.
+force дает максимум проверок даже в случаях, когда ресурс работает без обхода или с более простыми стратегиями.
+
+## P.S.:
+
+### Автохостлист находится по адресу (Сюда идет пополнение доменов на те к которым вы пытаетесь достучаться, например рутор, чуть позже он автоматически туда попадает):
+```shell
+nano /opt/zapret/ipset/zapret-hosts-auto.txt
+```
+
+### Удаленное подключение по ssh к Keenetic если вы под admin, в консоли вводим:
+```shell
+exec sh
+```
+
+### Запустить NFQWS и проверять работоспособность с помощью команды:
+```shell
+/opt/zapret/init.d/sysv/zapret start
+```
+
+### Для перезагрузки NFQWS использовать команду:
+```shell
+/opt/zapret/init.d/sysv/zapret restart
+```
+
+### Для остановки NFQWS использовать команду:
+```shell
+/opt/zapret/init.d/sysv/zapret stop
+```
+
+#zapret #bol-van #keenetic #youtube #ускорение #ростелеком
