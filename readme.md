@@ -257,6 +257,14 @@ NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=
 ```shell
 /opt/etc/init.d/rc.unslung restart
 ```
+Или
+```shell
+/etc/init.d/zapret restart
+```
+Или
+```shell
+/opt/zapret/init.d/sysv/zapret restart
+```
 
 ### Также можно воспользоваться автоподбором. Автоподбор параметров, у каждого могут быть индивидуальными
 Следует прогнать blockcheck по нескольким замедленным сайтам и выявить общий характер замедленний.
