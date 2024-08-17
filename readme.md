@@ -259,10 +259,6 @@ NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=
 ```
 Или
 ```shell
-/etc/init.d/zapret restart
-```
-Или
-```shell
 /opt/zapret/init.d/sysv/zapret restart
 ```
 
