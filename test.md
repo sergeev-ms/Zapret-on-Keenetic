@@ -204,9 +204,9 @@ cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/blacklist-russia/zapret-hosts-user.txt
 ```
 
-### Перезагружаемся командой reboot.
+### Перезагружаем entware(openwrt) командой ниже.
 ```shell
-reboot
+/opt/etc/init.d/rc.unslung restart
 ```
 
 ## Готово, проверяем.
