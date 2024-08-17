@@ -215,17 +215,17 @@ curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/host
 
 
 
-## Если не заработало, открываем снова конфиг
+### Если не заработало, открываем снова конфиг
 ```shell
 nano /opt/zapret/config
 ```
 
-### Обращаем внимание на строку:
+#### Обращаем внимание на строку:
 ```bash
 NFQWS_OPT_DESYNC="--dpi-desync=fake,disorder2 --dpi-desync-split-pos=1 --dpi-desync-ttl=0 --dpi-desync-fooling=md5sig,badsum --dpi-desync-repeats=6 --dpi-desync-any-protocol --dpi-desync-cutoff=d4" 
 ```
 
-### Можно попробовать менять значение ttl от 0 до 12 или же сменить значения dpi-desync с split2 на disorber2 ниже несколько примеров:
+#### Можно попробовать менять значение ttl от 0 до 12 или же сменить значения dpi-desync с split2 на disorber2 ниже несколько примеров:
 ```bash
 NFQWS_OPT_DESYNC="--dpi-desync=split2"
 ```
@@ -248,24 +248,9 @@ NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooli
 NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=2 --dpi-desync-split-pos=1 --wssize 1:6 --dpi-desync-fooling=md5sig"
 ```
 
-### После этого исполняем все что ниже и так по кругу, пока не добьетесь результата
-
-### Очистка таблицы ip адресов
+#### После этого перезагружаем entware(openwrt) и так до тех пор, пока не достигните результата.
 ```shell
-/opt/zapret/ipset/clear_lists.sh
-```
-
-### Получить новые данные списка хостов
-```shell
-/opt/zapret/ipset/get_user.sh
-```
-### Получить новые данные конфига
-```shell
-/opt/zapret/ipset/get_config.sh
-```
-### Перезагрузить Zapret
-```shell
-/opt/zapret/init.d/sysv/zapret restart
+/opt/etc/init.d/rc.unslung restart
 ```
 
 ### Также можно воспользоваться автоподбором. Автоподбор параметров, у каждого могут быть индивидуальными
