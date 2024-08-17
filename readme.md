@@ -1,12 +1,14 @@
-## [README принципа работы от разработчика](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/docs/readme.txt)
+## [README принципа работы от разработчика>>](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/docs/readme.txt)
 
-# Подробная обновляемая инструкция настройки репозитория [Zapret](https://github.com/bol-van/zapret) от [bol-van](https://github.com/bol-van) на Keenetic от [@nik](https://t.me/nik_pushistov)
+# Подробная обновляемая инструкция настройки репозитория [Zapret](https://github.com/bol-van/zapret) от [bol-van](https://github.com/bol-van) на Keenetic.
+
+[@nik>>](https://t.me/nik_pushistov)
 
 ## Краткое описание
 
 Автономное, без задействования сторонних серверов, средство противодействия DPI.
 Может помочь обойти блокировки или замедление сайтов http(s), сигнатурный анализ tcp и udp протоколов,
-например с целью блокировки VPN.
+например с целью замедления YouTube.
 
 Существуют режимы обхода TPWS и NFQWS. Режим NFQWS имеет ряд преимуществ пред режимом TPWS. Больше параметров модификации TCP соединения на уровне пакетов. Реализуется через обработчик очереди NFQUEUE и raw сокеты, а также возможность модификации трафика по протоколу QUIC.
 
@@ -16,7 +18,7 @@
 
 (рекомендуется) Keenetic Viva kn-1912 с 256мб ОЗУ и дороже.
 
-(рекомендуется) Keenetic Extra, Viva с менее 256мб ОЗУ лучше использовать ограниченный свежий хостлист [хостлист](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/YFIT/zapret-hosts-user), где будут только Youtube, Facebook, Instagram, Twitter(X), rutor.info, rutracker.org - это позволит значительно снизить нагрузку с ОЗУ.
+(рекомендуется) Keenetic Extra, Viva с менее 256мб ОЗУ лучше использовать ограниченный свежий хостлист [хостлист](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/YFIT/zapret-hosts-user), где будут только Youtube, F, I, T(X), Ror, Rer - это позволит значительно снизить нагрузку с ОЗУ.
 
 (обязательно) Проверить, что установленны все пакеты под категорией OPKG в наборах компонентов в настройках, также протокол IPv6 и Модули ядра подсистемы Netfilter (он появится в списке пакетов только после установки пакета "Протокол IPv6").
 
@@ -25,7 +27,7 @@
 (обязательно) [Установка системы пакетов репозитория Entware на USB-накопитель](https://help.keenetic.com/hc/ru/articles/360021214160). 
 Или не очень хороший метод [Установка OPKG Entware на встроенную память роутера](https://help.keenetic.com/hc/ru/articles/360021888880).
 
-(опционально) Можно настроить, это позволит паралельно обходить блокировки от США, для таких сервисов как xbox, ps network, если находитесь в России [Прокси-серверы DNS-over-TLS и DNS-over-HTTPS для шифрования DNS-запросов](https://help.keenetic.com/hc/ru/articles/360007687159).
+(опционально) Можно настроить, но не обязательно, если совсем ничего не поможет. [Прокси-серверы DNS-over-TLS и DNS-over-HTTPS для шифрования DNS-запросов](https://help.keenetic.com/hc/ru/articles/360007687159).
 
 Все дальнейшие команды выполняются не в cli роутера, а **в среде entware**.
 
@@ -507,7 +509,7 @@ yt4.ggpht.com
 ytimg.com
 ytimg.l.google.com
 ```
-#### Или можно добавить к ускорению Youtube еще и Facebook, Instagram, Twitter(X), rutor.info, rutracker.org, подойдет для роутеров Keentic с ОЗУ менее 256мб
+#### Или можно добавить к ускорению Youtube еще и F, I, T(X), Ror, Rer, подойдет для роутеров Keentic с ОЗУ менее 256мб
 [zapret-hots-user.txt](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/YFIT/zapret-hosts-user)
 
 ### На этом настройка Zapret роутере завершена и можно перезагружать:
@@ -515,7 +517,7 @@ ytimg.l.google.com
 reboot
 ```
 
-## Проверяем ютуб на каком нибудь 8K ролике! Между прочим даже с таким способом будет автоматический обход и других сайтов, но немного иначе.
+## Проверяем ютуб на каком нибудь 8K ролике! Между прочим даже с таким способом будет автоматический обход и других "очень медленных" сайтов, но немного иначе.
 
 ## Альтенативный способ: (Не рекомендуется для роутеров с ОЗУ менее 256мб. В данный момент если находимся на этом этапе, файл закрываем CTRL+X N)
 ```shell
@@ -530,7 +532,7 @@ nano /opt/zapret/ipset/zapret-hosts-user.txt
 reboot
 ```
 
-## Проверяем инстаграм на телефоне, торренты и прочую запрещенку)
+## Проверяем наболевшие социальные сети и тд.)
 
 
 
@@ -588,8 +590,8 @@ NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=
 ```
 
 ### Также можно воспользоваться автоподбором. Автоподбор параметров, у каждого могут быть индивидуальными
-Следует прогнать blockcheck по нескольким заблокированным сайтам и выявить общий характер блокировок.
-Разные сайты могут быть заблокированы по-разному, нужно искать такую технику, которая работает на большинстве.
+Следует прогнать blockcheck по нескольким замедленным сайтам и выявить общий характер замедленний.
+Разные сайты могут быть замедленны по-разному, нужно искать такую технику, которая работает на большинстве.
 Чтобы записать вывод blockcheck.sh в файл, выполните : ./blockcheck.sh | tee /tmp/blockcheck.txt
 ```shell
 /opt/zapret/blockcheck.sh | tee /opt/zapret/blockcheck.txt
@@ -641,4 +643,4 @@ exec sh
 /opt/zapret/init.d/sysv/zapret stop
 ```
 
-#zapret #bol-van #keenetic #youtube #обход #замедление #РКН
+#zapret #bol-van #keenetic #youtube #ускорение #ростелеком
