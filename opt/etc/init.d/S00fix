@@ -1,0 +1,20 @@
+#!/bin/sh
+start() {
+    echo 0 > /proc/sys/net/netfilter/nf_conntrack_checksum
+}
+stop() {
+    echo 1 > /proc/sys/net/netfilter/nf_conntrack_checksum
+}
+case "$1" in
+    'start')
+        start
+        ;;
+    'stop')
+        stop
+        ;;
+    *)
+        stop
+        start
+        ;;
+esac
+exit 0
