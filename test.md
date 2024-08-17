@@ -188,19 +188,19 @@ IFACE_LAN="br0 br1 ezcfg0"
 
 ### Если необходимо ускорить только youtube, загружаем.
 ```shell
-/opt/zapret/ipset
+cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/youtube/zapret-hosts-user.txt
 ```
 
 ### Если необходимо ускорить youtube и соц. сети f, y, t(x).
 ```shell
-/opt/zapret/ipset
+cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/yfit/zapret-hosts-user.txt
 ```
 
 ### Если необходимо ускорить все что можно, то.
 ```shell
-/opt/zapret/ipset
+cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/blacklist-russia/zapret-hosts-user.txt
 ```
 
