@@ -1,13 +1,11 @@
 ## [README принципа работы от разработчика>>](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/docs/readme.txt)
 
-# Подробная обновляемая инструкция настройки репозитория [Zapret](https://github.com/bol-van/zapret) от [bol-van](https://github.com/bol-van) на Keenetic.
-
-[@nik>>](https://t.me/nik_pushistov)
+# Подробная обновляемая [@nik>>](https://t.me/nik_pushistov) инструкция настройки репозитория [Zapret](https://github.com/bol-van/zapret) от [bol-van](https://github.com/bol-van) на Keenetic.
 
 ## Краткое описание
 
 Автономное, без задействования сторонних серверов, средство противодействия DPI.
-Может помочь обойти блокировки или замедление сайтов http(s), сигнатурный анализ tcp и udp протоколов,
+Может помочь обойти замедления сайтов http(s), сигнатурный анализ tcp и udp протоколов,
 например с целью замедления YouTube.
 
 Существуют режимы обхода TPWS и NFQWS. Режим NFQWS имеет ряд преимуществ пред режимом TPWS. Больше параметров модификации TCP соединения на уровне пакетов. Реализуется через обработчик очереди NFQUEUE и raw сокеты, а также возможность модификации трафика по протоколу QUIC.
