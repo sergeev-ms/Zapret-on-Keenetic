@@ -1,0 +1,130 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:		zapret
+# Required-Start:	$local_fs $network
+# Required-Stop:	$local_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+### END INIT INFO
+
+SCRIPT=$(readlink -f "$0")
+EXEDIR=$(dirname "$SCRIPT")
+ZAPRET_BASE=$(readlink -f "$EXEDIR/../..")
+. "$EXEDIR/functions"
+
+NAME=zapret
+DESC=anti-zapret
+
+do_start()
+{
+
+    if lsmod | grep "xt_multiport " &> /dev/null ;  then
+		echo "xt_multiport.ko is already loaded"
+    else
+        if insmod /lib/modules/$(uname -r)/xt_multiport.ko &> /dev/null; then
+			echo "iptable_raw.ko loaded"
+        else
+			echo "Cannot find xt_multiport.ko kernel module, aborting"
+			exit 1
+        fi
+	fi
+     
+	if lsmod | grep "xt_connbytes " &> /dev/null ;  then
+        echo "xt_connbytes.ko is already loaded"
+    else
+        if insmod /lib/modules/$(uname -r)/xt_connbytes.ko &> /dev/null; then
+			echo "xt_connbytes.ko loaded"
+        else
+			echo "Cannot find xt_connbytes.ko kernel module, aborting"
+			exit 1
+        fi
+	fi
+	
+	if lsmod | grep "xt_NFQUEUE " &> /dev/null ;  then
+        echo "xt_NFQUEUE.ko is already loaded"
+    else
+        if insmod /lib/modules/$(uname -r)/xt_NFQUEUE.ko &> /dev/null; then
+            echo "xt_NFQUEUE.ko loaded"
+        else
+            echo "Cannot find xt_NFQUEUE.ko kernel module, aborting"
+            exit 1
+        fi
+    fi		 
+
+	zapret_run_daemons
+	[ "$INIT_APPLY_FW" != "1" ] || { zapret_apply_firewall; }
+	for IFACE_N in $IFACE_WAN; do
+		iptables -t nat -A POSTROUTING -o $IFACE_N -j MASQUERADE
+    done
+}
+do_stop()
+{
+	zapret_stop_daemons
+	[ "$INIT_APPLY_FW" != "1" ] || zapret_unapply_firewall
+	for IFACE_N in $IFACE_WAN; do
+		iptables -t nat -D POSTROUTING -o $IFACE_N -j MASQUERADE
+	done
+}
+
+case "$1" in
+	start)
+		do_start
+		;;
+
+	stop)
+		do_stop
+		;;
+
+	restart)
+		do_stop
+		do_start
+		;;
+
+	start-fw|start_fw)
+		zapret_apply_firewall
+		;;
+	stop-fw|stop_fw)
+		zapret_unapply_firewall
+		;;
+
+	restart-fw|restart_fw)
+		zapret_unapply_firewall
+		for IFACE_N in $IFACE_WAN; do
+			iptables -t nat -D POSTROUTING -o $IFACE_N -j MASQUERADE
+		done
+			
+		zapret_apply_firewall
+		for IFACE_N in $IFACE_WAN; do
+			iptables -t nat -A POSTROUTING -o $IFACE_N -j MASQUERADE
+		done
+		;;
+	
+	start-daemons|start_daemons)
+		zapret_run_daemons
+		;;
+	stop-daemons|stop_daemons)
+		zapret_stop_daemons
+		;;
+	restart-daemons|restart_daemons)
+		zapret_stop_daemons
+		zapret_run_daemons
+		;;
+
+	reload-ifsets|reload_ifsets)	
+		zapret_reload_ifsets
+		;;
+	list-ifsets|list_ifsets)	
+		zapret_list_ifsets
+		;;
+	list-table|list_table)	
+		zapret_list_table
+		;;
+		
+  *)
+	N=/etc/init.d/$NAME
+	echo "Usage: $N {start|stop|restart|start-fw|stop-fw|restart-fw|start-daemons|stop-daemons|restart-daemons|reload-ifsets|list-ifsets|list-table}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
