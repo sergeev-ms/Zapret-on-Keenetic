@@ -52,18 +52,18 @@ exec sh
 
 ## Установка
 
-### 1. Обновляем opkg пакеты:
+### 1. Обновляем пакеты opkg.
 ```shell
 opkg update
 ```
 
-### 2. Устанавливаем пакеты:
+### 2. Устанавливаем пакеты ipset.
 
 ```shell
 opkg install coreutils-sort curl git-http grep gzip ipset iptables kmod_ndms nano xtables-addons_legacy
 ```
 
-### 3. Переходим в tmp и скачиваем Zapret:
+### 3. Переходим в tmp и скачиваем Zapret.
 ```shell
 cd /opt/tmp
 git clone --depth=1 https://github.com/bol-van/zapret.git
