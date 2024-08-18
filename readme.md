@@ -105,9 +105,7 @@ y
 
 ### 7. Удаляем ненужное.
 ```shell
-rm -rf /opt/tmp/zapret
-rm -rf /opt/tmp/zapret-master
-rm -rf /opt/tmp/zapret-master.zip
+rm -rf /opt/tmp/*
 ```
 
 ### 8. Теперь автозапуск Zapret при включении роутера.
@@ -309,6 +307,12 @@ nano /opt/zapret/ipset/zapret-hosts-user.txt
 ### Для перезагрузки NFQWS использовать команду:
 ```shell
 /opt/zapret/init.d/sysv/zapret restart
+```
+
+### Сделать backup entware(openwrt) с Zapret:
+```shell
+cd /opt
+tar cvzf /opt/backup-`date -I`.tar.gz *
 ```
 
 ### Для остановки NFQWS использовать команду:
