@@ -2,7 +2,7 @@
 
 # Подробная обновляемая [@nik](https://t.me/nik_pushistov) инструкция настройки репозитория [Zapret](https://github.com/bol-van/zapret) от [bol-van](https://github.com/bol-van) на Keenetic.
 
-## Краткое описание
+## Краткое описание.
 
 Автономное, без задействования сторонних серверов, средство противодействия DPI.
 Может помочь обойти замедления сайтов http(s), сигнатурный анализ tcp и udp протоколов,
@@ -12,13 +12,13 @@
 
 ### P.S. Это не VPN и не прокси, это средство для обмана (подмены) пакетов tcp и udp протокола, не режет скорость, повышается анонимность, а также не ломает то, что и так хорошо работало.
 
-## Технические требования
+## Технические требования.
 
-(рекомендуется) Keenetic Viva kn-1912 равным или более 256мб ОЗУ и наличием USB порта.
+(рекомендуемые) Keenetic Viva kn-1912 равным или более 256мб ОЗУ и наличием USB порта.
 
-(минимально) Keenetic Extra, Viva с менее 256мб ОЗУ и наличием USB порта.
+(минимальные) Keenetic Extra, Viva с менее 256мб ОЗУ и наличием USB порта.
 
-## Подготовка
+## Подготовка.
 
 (обязательно) Проверить, что установленны все пакеты под категорией OPKG в наборах компонентов в настройках, также протокол IPv6 и Модули ядра подсистемы Netfilter (он появится в списке пакетов только после установки пакета "Протокол IPv6").
 
@@ -50,20 +50,20 @@ exec sh
 
 ### Если видим BusyBox v1.36.1 (XXXX-XX-XX xx:xx:xx UTC) built-in shell (ash), переходим к установке, левой кнопкой мыши нажимая на квадратики копируем код, а правой вставляем в putty.
 
-## Установка
+## Установка.
 
 ### 1. Обновляем пакеты opkg.
 ```shell
 opkg update
 ```
 
-### 2. Устанавливаем пакеты ipset.
+### 2. Устанавливаем пакеты ipset:
 
 ```shell
 opkg install coreutils-sort curl git-http grep gzip ipset iptables kmod_ndms nano xtables-addons_legacy
 ```
 
-### 3. Загружаем репозитории Zapret.
+### 3. Загружаем репозитории Zapret:
 ```shell
 cd /opt/tmp
 git clone --depth=1 https://github.com/bol-van/zapret.git
@@ -101,47 +101,47 @@ cd zapret
 y
 ```
 
-### 6. Далее нажимаем ENTER, пока не увидим надпись press enter to continue, а затем снова жмем ENTER
+### 6. Далее нажимаем ENTER, пока не увидим надпись press enter to continue, а затем снова жмем ENTER.
 
-### 7. Удаляем ненужное.
+### 7. Удаляем ненужное:
 ```shell
 rm -rf /opt/tmp/*
 ```
 
-### 8. Теперь автозапуск Zapret при включении роутера.
+### 8. Теперь автозапуск Zapret при включении роутера:
 ```shell
 ln -fs /opt/zapret/init.d/sysv/zapret /opt/etc/init.d/S90-zapret
 ```
 
-### 9. Загружаем готовый стартовый скрипт с dnsmasq внутри.
+### 9. Загружаем готовый стартовый скрипт с dnsmasq внутри:
 ```shell
 cd /opt/zapret/init.d/sysv
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret/init.d/sysv/zapret
 ```
 
-### 10. Загружаем готовый скрипт, чтобы роутер не забывал правила.
+### 10. Загружаем готовый скрипт, чтобы роутер не забывал правила:
 ```shell
 cd /opt/etc/ndm/netfilter.d
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/etc/ndm/netfilter.d/000-zapret.sh
 ```
 
-### 11. Исполняем
+### 11. Исполняем:
 ```shell
 chmod +x /opt/etc/ndm/netfilter.d/000-zapret.sh
 ```
 
-### 12. Загружаем готовый скрипт для перевода net.netfilter.nf_conntrack_checksum в 0.
+### 12. Загружаем готовый скрипт для перевода net.netfilter.nf_conntrack_checksum в 0:
 ```shell
 cd /opt/etc/init.d
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/etc/init.d/S00fix
 ```
 
-### 13. Исполняем.
+### 13. Исполняем:
 ```shell
 chmod +x /opt/etc/init.d/S00fix
 ```
 
-### 14. Загружаем готовый конфиг Zapret, подходит для большинста провайдеров (Тестировался на Ростелеком, ЮФО).
+### 14. Загружаем готовый конфиг Zapret, подходит для большинста провайдеров (Тестировался на Ростелеком, ЮФО):
 ```shell
 cd /opt/zapret
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret/config
@@ -178,11 +178,11 @@ IFACE_WAN=eth3
 IFACE_WAN="eth3 usb0"
 ```
 
-#### (опционально, надо проверить) Если необходимо направить трафик не на всю сеть, а например только гостевую сеть, vlan, опеределенный порт или l2tp, уберите решетку в #IFACE_LAN=eth0 и укажите 1 или несколько интерфейсов (узнать какой интерфейс за что отвечает, можно все той же командой ifconfig)
+#### (опционально, надо проверить) Если необходимо направить трафик не на всю сеть, а например только гостевую сеть, vlan, опеределенный порт или l2tp, уберите решетку в #IFACE_LAN=eth0 и укажите 1 или несколько интерфейсов (узнать какой интерфейс за что отвечает, можно все той же командой ifconfig):
 ```bash
 IFACE_LAN=br0
 ```
-#### Или br0 - это бридж основной сети, br1 - vlan гостевой сети, ezcfg0 - частный VPN сервер IKEv2/IPsec и т.д.
+#### Или br0 - это бридж основной сети, br1 - vlan гостевой сети, ezcfg0 - частный VPN сервер IKEv2/IPsec и т.д.:
 ```bash
 IFACE_LAN="br0 br1 ezcfg0"
 ```
@@ -191,25 +191,25 @@ IFACE_LAN="br0 br1 ezcfg0"
 
 ### 15. Далее выбираем, что будем ускорять:
 
-#### Если необходимо ускорить только youtube, загружаем.
+#### Если необходимо ускорить только youtube, загружаем:
 ```shell
 cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/youtube/zapret-hosts-user.txt
 ```
 
-#### Если необходимо ускорить youtube и соц. сети f, y, t(x).
+#### Если необходимо ускорить youtube и соц. сети f, y, t(x):
 ```shell
 cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/yfit/zapret-hosts-user.txt
 ```
 
-#### Если необходимо ускорить все что можно, то.
+#### Если необходимо ускорить все что можно, то:
 ```shell
 cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/blacklist-russia/zapret-hosts-user.txt
 ```
 
-### 16. Перезагружаем entware(openwrt) командой ниже.
+### 16. Перезагружаем entware(openwrt) командой ниже:
 ```shell
 /opt/etc/init.d/rc.unslung restart
 ```
@@ -218,7 +218,7 @@ curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/host
 
 
 
-### Если не заработало, открываем снова конфиг
+### Если не заработало, открываем снова конфиг:
 ```shell
 nano /opt/zapret/config
 ```
