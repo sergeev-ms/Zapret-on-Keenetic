@@ -262,6 +262,8 @@ NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=
 /opt/zapret/init.d/sysv/zapret restart
 ```
 
+## P.S.:
+
 ### Также можно воспользоваться автоподбором. Автоподбор параметров, у каждого могут быть индивидуальными
 Следует прогнать blockcheck по нескольким замедленным сайтам и выявить общий характер замедленний.
 Разные сайты могут быть замедленны по-разному, нужно искать такую технику, которая работает на большинстве.
@@ -269,8 +271,6 @@ NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=
 ```shell
 /opt/zapret/blockcheck.sh | tee /opt/zapret/blockcheck.txt
 ```
-
-## P.S.:
 
 Проанализируйте какие методы дурения DPI работают, в соответствии с ними настройте /opt/zapret/config.
 
