@@ -108,7 +108,7 @@ y
 rm -rf /opt/tmp/*
 ```
 
-### 8. Теперь автозапуск Zapret при включении роутера:
+### 8. Создадим правило для автозапуска Zapret при включении роутера:
 ```shell
 ln -fs /opt/zapret/init.d/sysv/zapret /opt/etc/init.d/S90-zapret
 ```
