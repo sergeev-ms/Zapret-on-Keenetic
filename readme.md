@@ -309,15 +309,20 @@ nano /opt/zapret/ipset/zapret-hosts-user.txt
 /opt/zapret/init.d/sysv/zapret restart
 ```
 
+### Для остановки NFQWS использовать команду:
+```shell
+/opt/zapret/init.d/sysv/zapret stop
+```
+
 ### Сделать backup entware(openwrt) с Zapret:
 ```shell
 cd /opt
 tar cvzf /opt/backup-`date -I`.tar.gz *
 ```
 
-### Для остановки NFQWS использовать команду:
+### Для очистки содержимого фдэшки, чтобы например, попробовать все заново:
 ```shell
-/opt/zapret/init.d/sysv/zapret stop
+rm -rf /opt/*
 ```
 
 #zapret #bol-van #keenetic #youtube #ускорение #ростелеком
