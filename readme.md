@@ -14,9 +14,9 @@
 
 ## Технические требования
 
-(рекомендуется) Keenetic Viva kn-1912 с 256мб ОЗУ и дороже с наличием USB порта.
+(рекомендуется) Keenetic Viva kn-1912 равным или более 256мб ОЗУ и наличием USB порта.
 
-(минимально) Keenetic Extra, Viva с менее 256мб ОЗУ лучше использовать ограниченный свежий [хостлист](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/YFIT/zapret-hosts-user), где будут только Youtube, F, I, T(X), Ror, Rer - это позволит значительно снизить нагрузку с ОЗУ.
+(минимально) Keenetic Extra, Viva с менее 256мб ОЗУ и наличием USB порта.
 
 ## Подготовка
 
