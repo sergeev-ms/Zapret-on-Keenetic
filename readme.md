@@ -146,6 +146,11 @@ chmod +x /opt/etc/init.d/S00fix
 cd /opt/zapret
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret/config
 ```
+Или такой, разницу сможете ощутить после завершения цикла настройки.
+```shell
+cd /opt/zapret
+curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret_alt/config
+```
 
 #### Так как вы вставили мой конфиг, вы также перенесли несколько настроек, если у вас авторизация у провайдера pppoe, а роутер с ОЗУ более 256мб, то переходим к 15 шагу.
 ```bash
