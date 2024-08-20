@@ -4,6 +4,8 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+
+#define __FAVOR_BSD
 #include <netinet/ip.h>
 #include <netinet/ip6.h>
 #include <netinet/tcp.h>
