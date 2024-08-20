@@ -336,7 +336,7 @@ static bool proxy_remote_conn_ack(tproxy_conn_t *conn, int sock_err)
 //Returns -1 if something fails, >0 on success (socket fd).
 static int connect_remote(const struct sockaddr *remote_addr, bool bApplyConnectionFooling)
 {
-	int remote_fd = 0, yes = 1, no = 0, v;
+	int remote_fd = 0, yes = 1, no = 0;
     
 	
  	if((remote_fd = socket(remote_addr->sa_family, SOCK_STREAM, 0)) < 0)
@@ -625,7 +625,7 @@ static bool check_connection_attempt(tproxy_conn_t *conn, int efd)
 	if (!errn)
 	{
 		VPRINT("Socket fd=%d (remote) connected", conn->fd)
-		if (!epoll_set_flow(conn, true, false) || conn_partner_alive(conn) && !epoll_set_flow(conn->partner, true, false))
+		if (!epoll_set_flow(conn, true, false) || (conn_partner_alive(conn) && !epoll_set_flow(conn->partner, true, false)))
 		{
 			return false;
 		}
@@ -876,10 +876,7 @@ static bool handle_proxy_mode(tproxy_conn_t *conn, struct tailhead *conn_list)
 								break;
 							case S5_ATYP_DOM:
 								{
-									struct addrinfo *ai,hints;
-									int r;
 									uint16_t port;
-									char sport[6];
 
 									if (params.no_resolve)
 									{
@@ -1067,7 +1064,7 @@ static bool handle_epoll(tproxy_conn_t *conn, struct tailhead *conn_list, uint32
 	{
 		DBGPRINT("%s leg fd=%d stream pos : %" PRIu64 "(n%" PRIu64 ")/%" PRIu64, conn->remote ? "remote" : "local", conn->fd, conn->trd,conn->tnrd+1,conn->twr)
 #ifdef SPLICE_PRESENT
-		if (!params.nosplice && (!params.tamper || conn->remote && conn->partner->track.bTamperInCutoff || !conn->remote && !in_tamper_out_range(conn)))
+		if (!params.nosplice && (!params.tamper || (conn->remote && conn->partner->track.bTamperInCutoff) || (!conn->remote && !in_tamper_out_range(conn))))
 		{
 			// incoming data from remote leg we splice without touching
 			// pipe is in the local leg, so its in conn->partner->splice_pipe

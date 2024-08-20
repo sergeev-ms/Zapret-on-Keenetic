@@ -140,10 +140,10 @@ bool samappedcmp(const struct sockaddr_in *sa1,const struct sockaddr_in6 *sa2)
 }
 bool sacmp(const struct sockaddr *sa1,const struct sockaddr *sa2)
 {
-	return sa1->sa_family==AF_INET && sa2->sa_family==AF_INET && !memcmp(&((struct sockaddr_in*)sa1)->sin_addr,&((struct sockaddr_in*)sa2)->sin_addr,sizeof(struct in_addr)) ||
-		sa1->sa_family==AF_INET6 && sa2->sa_family==AF_INET6 && !memcmp(&((struct sockaddr_in6*)sa1)->sin6_addr,&((struct sockaddr_in6*)sa2)->sin6_addr,sizeof(struct in6_addr)) ||
-		sa1->sa_family==AF_INET && sa2->sa_family==AF_INET6 && samappedcmp((struct sockaddr_in*)sa1,(struct sockaddr_in6*)sa2) ||
-		sa1->sa_family==AF_INET6 && sa2->sa_family==AF_INET && samappedcmp((struct sockaddr_in*)sa2,(struct sockaddr_in6*)sa1);
+	return (sa1->sa_family==AF_INET && sa2->sa_family==AF_INET && !memcmp(&((struct sockaddr_in*)sa1)->sin_addr,&((struct sockaddr_in*)sa2)->sin_addr,sizeof(struct in_addr))) ||
+		(sa1->sa_family==AF_INET6 && sa2->sa_family==AF_INET6 && !memcmp(&((struct sockaddr_in6*)sa1)->sin6_addr,&((struct sockaddr_in6*)sa2)->sin6_addr,sizeof(struct in6_addr))) ||
+		(sa1->sa_family==AF_INET && sa2->sa_family==AF_INET6 && samappedcmp((struct sockaddr_in*)sa1,(struct sockaddr_in6*)sa2)) ||
+		(sa1->sa_family==AF_INET6 && sa2->sa_family==AF_INET && samappedcmp((struct sockaddr_in*)sa2,(struct sockaddr_in6*)sa1));
 }
 uint16_t saport(const struct sockaddr *sa)
 {
@@ -154,7 +154,7 @@ bool saconvmapped(struct sockaddr_storage *a)
 {
 	if ((a->ss_family == AF_INET6) && saismapped((struct sockaddr_in6*)a))
 	{
-		uint32_t ip4 = *(uint32_t*)(((struct sockaddr_in6*)a)->sin6_addr.s6_addr+12);
+		uint32_t ip4 = IN6_EXTRACT_MAP4(((struct sockaddr_in6*)a)->sin6_addr.s6_addr);
 		uint16_t port = ((struct sockaddr_in6*)a)->sin6_port;
 		a->ss_family = AF_INET;
 		((struct sockaddr_in*)a)->sin_addr.s_addr = ip4;
@@ -166,11 +166,13 @@ bool saconvmapped(struct sockaddr_storage *a)
 
 bool is_localnet(const struct sockaddr *a)
 {
-	// 0.0.0.0, ::ffff:0.0.0.0 = localhost in linux
-	return a->sa_family==AF_INET && (*(char*)&((struct sockaddr_in *)a)->sin_addr.s_addr==127 || !((struct sockaddr_in *)a)->sin_addr.s_addr) ||
-		a->sa_family==AF_INET6 && (
-		    saismapped((struct sockaddr_in6 *)a) && (((struct sockaddr_in6 *)a)->sin6_addr.s6_addr[12]==127 || !*(uint32_t*)(((struct sockaddr_in6 *)a)->sin6_addr.s6_addr+12)) ||
-		    !memcmp(((struct sockaddr_in6 *)a)->sin6_addr.s6_addr,"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00",15) && !(((struct sockaddr_in6 *)a)->sin6_addr.s6_addr[15] & 0xFE));
+	// match 127.0.0.0/8, 0.0.0.0, ::1, ::0, :ffff:127.0.0.0/104, :ffff:0.0.0.0
+	return (a->sa_family==AF_INET && (IN_LOOPBACK(htonl(((struct sockaddr_in *)a)->sin_addr.s_addr)) ||
+					    INADDR_ANY == (((struct sockaddr_in *)a)->sin_addr.s_addr))) ||
+		(a->sa_family==AF_INET6 && (IN6_IS_ADDR_LOOPBACK(((struct sockaddr_in6 *)a)->sin6_addr.s6_addr) ||
+					    IN6_IS_ADDR_UNSPECIFIED(((struct sockaddr_in6 *)a)->sin6_addr.s6_addr) ||
+					    (IN6_IS_ADDR_V4MAPPED(((struct sockaddr_in6 *)a)->sin6_addr.s6_addr) && (IN_LOOPBACK(htonl(IN6_EXTRACT_MAP4(((struct sockaddr_in6*)a)->sin6_addr.s6_addr))) ||
+					    INADDR_ANY == IN6_EXTRACT_MAP4(((struct sockaddr_in6*)a)->sin6_addr.s6_addr)))));
 }
 bool is_linklocal(const struct sockaddr_in6 *a)
 {
@@ -234,7 +236,7 @@ time_t file_mod_time(const char *filename)
 
 bool pf_in_range(uint16_t port, const port_filter *pf)
 {
-	return port && ((!pf->from && !pf->to || port>=pf->from && port<=pf->to) ^ pf->neg);
+	return port && (((!pf->from && !pf->to) || (port>=pf->from && port<=pf->to)) ^ pf->neg);
 }
 bool pf_parse(const char *s, port_filter *pf)
 {

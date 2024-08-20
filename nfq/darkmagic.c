@@ -1321,7 +1321,6 @@ static bool logical_net_filter_match_rate_limited(void)
 static HANDLE windivert_init_filter(const char *filter, UINT64 flags)
 {
 	LPSTR errormessage = NULL;
-	DWORD errorcode = 0;
 	HANDLE h, hMutex;
 	const char *mutex_name = "Global\\winws_windivert_mutex";
 
@@ -1610,7 +1609,6 @@ static bool set_socket_fwmark(int sock, uint32_t fwmark)
 
 static int rawsend_socket(sa_family_t family)
 {
-	int yes=1;
 	int *sock = rawsend_family_sock(family);
 	if (!sock) return -1;
 	
