@@ -337,4 +337,10 @@ rm -rf /opt/*
 /opt/etc/init.d/rc.unslung
 ```
 
+### Обновить репозиторий Zapret можно выполнив эту команду (разработчик в последнее время активизировался и регулярно правит код):
+```shell
+cd /opt/zapret
+git pull --rebase
+```
+
 #zapret #bol-van #keenetic #youtube #ускорение #ростелеком
