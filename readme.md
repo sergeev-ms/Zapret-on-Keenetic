@@ -202,7 +202,7 @@ cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/youtube/zapret-hosts-user.txt
 ```
 
-#### Если необходимо ускорить youtube и соц. сети f, y, t(x):
+#### Если необходимо ускорить youtube и соц. сети f, i, t(x):
 ```shell
 cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/yfit/zapret-hosts-user.txt
