@@ -141,7 +141,7 @@ curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/
 chmod +x /opt/etc/init.d/S00fix
 ```
 
-### 14. Загружаем готовый конфиг Zapret, подходит для большинста провайдеров (Тестировался на Ростелеком, ЮФО):
+### 14. Загружаем готовый конфиг Zapret, подходит для большинста провайдеров с pppoe (Тестировался на Ростелеком, Дом.ру):
 ```shell
 cd /opt/zapret
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret/config
