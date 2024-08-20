@@ -146,7 +146,7 @@ chmod +x /opt/etc/init.d/S00fix
 cd /opt/zapret
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret/config
 ```
-Или такой, разницу сможете ощутить после завершения цикла настройки.
+Или такой, разницу сможете ощутить после завершения цикла настройки (сменил первый сегмент фейка с disorder2 на split2, а также ttl на знаение 6).
 ```shell
 cd /opt/zapret
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret_alt/config
