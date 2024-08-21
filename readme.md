@@ -28,7 +28,7 @@
 <details>
     <summary>Советую так</summary>
     
-![DoT](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/image/DoT.png)
+![DoT](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/images/DoT.png)
     
 </details>
 
