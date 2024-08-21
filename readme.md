@@ -318,7 +318,7 @@ rm -rf /opt/*
 ### Обновить репозиторий Zapret можно выполнив эту команду (разработчик в последнее время активизировался и регулярно правит код):
 ```shell
 cd /opt/zapret
-git pull --rebase
+git pull --rebase --autostash
 ```
 
 #zapret #bol-van #keenetic #youtube #ускорение #ростелеком #дом.ру #мтс
