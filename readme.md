@@ -343,4 +343,4 @@ cd /opt/zapret
 git pull --rebase
 ```
 
-#zapret #bol-van #keenetic #youtube #ускорение #ростелеком
+#zapret #bol-van #keenetic #youtube #ускорение #ростелеком #дом.ру #мтс
