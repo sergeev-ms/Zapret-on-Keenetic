@@ -27,7 +27,9 @@
 (обязательно) Необходимо настроить DоT вне зависимости от провайдера, согласно инструкции [Прокси-серверы DNS-over-TLS и DNS-over-HTTPS для шифрования DNS-запросов](https://help.keenetic.com/hc/ru/articles/360007687159), и не забываем поставить галочку "игнорировать DNS провайдера".
 <details>
     <summary>Советую так</summary>
-![image](https://github.com/user-attachments/assets/f2627edc-ebda-4fba-810e-4241d0a0166b)
+    
+![DoT](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/image/DoT.png)
+    
 </details>
 
 (обязательно) [Установка системы пакетов репозитория Entware на USB-накопитель](https://help.keenetic.com/hc/ru/articles/360021214160). 
