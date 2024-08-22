@@ -2,6 +2,8 @@
 
 # Подробная обновляемая инструкция настройки репозитория [Zapret](https://github.com/bol-van/zapret) от [bol-van](https://github.com/bol-van) на Keenetic.
 
+[Дискуссия по инструкции](https://github.com/nikrays/Zapret-on-Keenetic/discussions/3)
+
 ## Краткое описание.
 
 Автономное, без задействования сторонних серверов, средство противодействия DPI.
