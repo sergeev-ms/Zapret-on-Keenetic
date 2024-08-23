@@ -301,4 +301,4 @@ cd /opt/zapret
 git pull --rebase --autostash
 ```
 
-#zapret #bol-van #keenetic #youtube #ускорение #ростелеком #дом.ру #мтс
+#zapret #bol-van #keenetic #youtube #ускорение #ростелеком #ИСС #дом.ру #мтс
