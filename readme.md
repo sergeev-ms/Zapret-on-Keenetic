@@ -21,6 +21,8 @@
 (рекомендуемые) Keenetic Viva kn-1912 равным или более 256мб ОЗУ и наличием USB порта.
 
 (минимальные) Keenetic Extra, Viva с менее 256мб ОЗУ и наличием USB порта.
+Пока Keenetic не выпустит обновление с патчем ядра, обсуждения https://github.com/bol-van/zapret/issues/311
+https://github.com/bol-van/zapret/issues/306
 
 ## Подготовка.
 
