@@ -18,11 +18,9 @@
 
 ## Технические требования.
 
-(рекомендуемые) Keenetic Viva kn-1912 равным или более 256мб ОЗУ и наличием USB порта.
-
-(минимальные) Keenetic Extra, Viva с менее 256мб ОЗУ и наличием USB порта.
-Пока Keenetic не выпустит обновление с патчем ядра, обсуждения https://github.com/bol-van/zapret/issues/311
-https://github.com/bol-van/zapret/issues/306
+(рекомендуемые) Любой Keenetic равным или более 128мб ОЗУ и наличием USB порта. Но пока есть проблемы, а именно, [Утечка памяти в модуле ядра Netfilter](https://github.com/bol-van/zapret/issues/311) и [случайные перезагрузки роутера](https://github.com/bol-van/zapret/issues/306) 
+Keenetic в курсе о [проблеме](https://forum.keenetic.com/topic/18656-%D1%83%D1%82%D0%B5%D1%87%D0%BA%D0%B0-%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D0%B8-kn-1811-417/?do=findComment&comment=187392) и решит ее в следующем редизе 4.2 beta 3.
+но есть воеменное решение, а именно, отключение [сетевого ускорителя](https://help.keenetic.com/hc/ru/articles/214470905-%D0%A1%D0%B5%D1%82%D0%B5%D0%B2%D0%BE%D0%B9-%D1%83%D1%81%D0%BA%D0%BE%D1%80%D0%B8%D1%82%D0%B5%D0%BB%D1%8C) в компонентах или в параметрах на свежих вкрсиях Keenetic.
 
 ## Подготовка.
 
