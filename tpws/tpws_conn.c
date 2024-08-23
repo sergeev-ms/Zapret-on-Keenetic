@@ -390,6 +390,38 @@ static int connect_remote(const struct sockaddr *remote_addr, bool bApplyConnect
 			VPRINT("Not setting MSS. Port %u is out of MSS port range.",port)
 		}
 	}
+
+	// if no bind address specified - address family will be 0 in params_connect_bindX
+	if(remote_addr->sa_family == params.connect_bind4.sin_family)
+	{
+		if (bind(remote_fd, (struct sockaddr *)&params.connect_bind4, sizeof(struct sockaddr_in)) == -1)
+		{
+			perror("bind on connect");
+			close(remote_fd);
+			return -1;
+		}
+	}
+	else if(remote_addr->sa_family == params.connect_bind6.sin6_family)
+	{
+		if (*params.connect_bind6_ifname && !params.connect_bind6.sin6_scope_id)
+		{
+			params.connect_bind6.sin6_scope_id=if_nametoindex(params.connect_bind6_ifname);
+			if (!params.connect_bind6.sin6_scope_id)
+			{
+				fprintf(stderr, "interface name not found : %s\n", params.connect_bind6_ifname);
+				close(remote_fd);
+				return -1;
+			}
+		}
+
+		if (bind(remote_fd, (struct sockaddr *)&params.connect_bind6, sizeof(struct sockaddr_in6)) == -1)
+		{
+			perror("bind on connect");
+			close(remote_fd);
+			return -1;
+		}
+	}
+
 	if (connect(remote_fd, remote_addr, remote_addr->sa_family == AF_INET ? sizeof(struct sockaddr_in) : sizeof(struct sockaddr_in6)) < 0)
 	{
 		if(errno != EINPROGRESS)

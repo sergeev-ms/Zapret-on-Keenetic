@@ -136,6 +136,7 @@ static void exithelp(void)
 		" --bind-wait-ip-linklocal=<sec>\t\t; (prefer) accept only LL first N seconds then any  (unwanted) accept only globals first N seconds then LL\n"
 		" --bind-wait-only\t\t\t; wait for bind conditions satisfaction then exit. return code 0 if success.\n"
 		" * multiple binds are supported. each bind-addr, bind-iface* start new bind\n"
+		" --connect-bind-addr=<v4_addr>|<v6_addr> ; address for outbound connections. for v6 link locals append %%interface_name\n"
 		" --port=<port>\t\t\t\t; only one port number for all binds is supported\n"
 		" --socks\t\t\t\t; implement socks4/5 proxy instead of transparent proxy\n"
 		" --no-resolve\t\t\t\t; disable socks5 remote dns ability\n"
@@ -355,13 +356,14 @@ void parse_params(int argc, char *argv[])
 		{ "skip-nodelay",no_argument,0,0 },// optidx=51
 		{ "tamper-start",required_argument,0,0 },// optidx=52
 		{ "tamper-cutoff",required_argument,0,0 },// optidx=53
+		{ "connect-bind-addr",required_argument,0,0 },// optidx=54
 #if defined(BSD) && !defined(__OpenBSD__) && !defined(__APPLE__)
-		{ "enable-pf",no_argument,0,0 },// optidx=54
+		{ "enable-pf",no_argument,0,0 },// optidx=55
 #elif defined(__linux__)
-		{ "mss",required_argument,0,0 },// optidx=54
-		{ "mss-pf",required_argument,0,0 },// optidx=55
+		{ "mss",required_argument,0,0 },// optidx=55
+		{ "mss-pf",required_argument,0,0 },// optidx=56
 #ifdef SPLICE_PRESENT
-		{ "nosplice",no_argument,0,0 },// optidx=55
+		{ "nosplice",no_argument,0,0 },// optidx=57
 #endif
 #endif
 		{ "hostlist-auto-retrans-threshold",optional_argument,0,0}, // ignored. for nfqws command line compatibility
@@ -784,12 +786,38 @@ void parse_params(int argc, char *argv[])
 				params.tamper_cutoff = atoi(p);
 			}
 			break;
+		case 54: /* connect-bind-addr */
+			{
+				char *p = strchr(optarg,'%');
+				if (p) *p++=0;
+				if (inet_pton(AF_INET, optarg, &params.connect_bind4.sin_addr))
+				{
+					params.connect_bind4.sin_family = AF_INET;
+				}
+				else if (inet_pton(AF_INET6, optarg, &params.connect_bind6.sin6_addr))
+				{
+					params.connect_bind6.sin6_family = AF_INET6;
+					if (p && *p)
+					{
+						// copy interface name for delayed resolution
+						strncpy(params.connect_bind6_ifname,p,sizeof(params.connect_bind6_ifname));
+						params.connect_bind6_ifname[sizeof(params.connect_bind6_ifname)-1]=0;
+					}
+
+				}
+				else
+				{
+					fprintf(stderr, "bad bind addr : %s\n", optarg);
+					exit_clean(1);
+				}
+			}
+			break;
 #if defined(BSD) && !defined(__OpenBSD__) && !defined(__APPLE__)
-		case 54: /* enable-pf */
+		case 55: /* enable-pf */
 			params.pf_enable = true;
 			break;
 #elif defined(__linux__)
-		case 54: /* mss */
+		case 55: /* mss */
 			// this option does not work in any BSD and MacOS. OS may accept but it changes nothing
 			params.mss = atoi(optarg);
 			if (params.mss<88 || params.mss>32767)
@@ -798,7 +826,7 @@ void parse_params(int argc, char *argv[])
 				exit_clean(1);
 			}
 			break;
-		case 55: /* mss-pf */
+		case 56: /* mss-pf */
 			if (!pf_parse(optarg,&params.mss_pf))
 			{
 				fprintf(stderr, "Invalid MSS port filter.\n");
@@ -806,7 +834,7 @@ void parse_params(int argc, char *argv[])
 			}
 			break;
 #ifdef SPLICE_PRESENT
-		case 56: /* nosplice */
+		case 57: /* nosplice */
 			params.nosplice = true;
 			break;
 #endif

@@ -72,6 +72,10 @@ struct params_s
 	bool tamper_start_n,tamper_cutoff_n;
 	unsigned int tamper_start,tamper_cutoff;
 
+	struct sockaddr_in connect_bind4;
+	struct sockaddr_in6 connect_bind6;
+	char connect_bind6_ifname[IF_NAMESIZE];
+
 	int debug;
 
 #if defined(BSD)
