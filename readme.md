@@ -71,7 +71,7 @@ opkg update
 opkg install coreutils-sort curl git-http grep gzip ipset iptables kmod_ndms nano xtables-addons_legacy
 ```
 
-### 3. Загружаем репозитории Zapret:
+### 3. Загружаем репозиторий Zapret:
 ```shell
 cd /opt/tmp
 git clone --depth=1 https://github.com/bol-van/zapret.git
