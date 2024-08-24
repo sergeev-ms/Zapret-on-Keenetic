@@ -134,7 +134,7 @@ cd /opt/zapret
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret_alt/config
 ```
 
-#### Так как вы вставили мой конфиг, вы также перенесли несколько настроек, если у вас авторизация у провайдера pppoe, то переходим к 15 шагу.
+#### Если авторизация не pppoe, редактируем строку, в ином случае переходим к 15 шагу.
 ```bash
 IFACE_WAN=ppp0
 ```
@@ -144,7 +144,7 @@ IFACE_WAN=ppp0
 ifconfig
 ```
 
-#### Если авторизация у провайдера не pppoe, а динамика или статика по динамике, то правим конфиг Zapret, редактором, командой ниже.
+#### Правим конфиг Zapret.
 ```shell
 nano /opt/zapret/config
 ```
