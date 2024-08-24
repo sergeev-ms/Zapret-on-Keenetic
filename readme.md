@@ -154,6 +154,12 @@ cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/blacklist-russia/zapret-hosts-user.txt
 ```
 
+#### Загружаем список исключений с доменами, которые могут работать некорректно:
+```shell
+cd /opt/zapret/ipset
+curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/zapret-hosts-user-exclude.txt
+```
+
 ### 16. Перезагружаем entware(openwrt) командой ниже:
 ```shell
 /opt/etc/init.d/rc.unslung restart
