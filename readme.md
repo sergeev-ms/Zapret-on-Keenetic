@@ -167,7 +167,7 @@ curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/host
 
 ## Готово, проверяем.
 
-### Скорость Youtube:
+### Запустить тест скорости Youtube:
 ```shell
 curl --connect-to ::speedtest.selectel.ru https://manifest.googlevideo.com/100MB -k -o/dev/null
 ```
