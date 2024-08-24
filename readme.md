@@ -134,7 +134,34 @@ cd /opt/zapret
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret_alt/config
 ```
 
-#### Если авторизация не pppoe, редактируем строку, в ином случае переходим к 15 шагу.
+### 15. (обновляемый пункт) Далее выбираем, что будем ускорять:
+
+#### Если необходимо ускорить только youtube, загружаем:
+```shell
+cd /opt/zapret/ipset
+curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/youtube/zapret-hosts-user.txt
+```
+
+#### Если необходимо ускорить youtube и соц. сети f, i, t(x):
+```shell
+cd /opt/zapret/ipset
+curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/yfit/zapret-hosts-user.txt
+```
+
+#### Если необходимо ускорить все что можно, то:
+```shell
+cd /opt/zapret/ipset
+curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/blacklist-russia/zapret-hosts-user.txt
+```
+
+### 16. Перезагружаем entware(openwrt) командой ниже:
+```shell
+/opt/etc/init.d/rc.unslung restart
+```
+
+## Готово, проверяем.
+
+### Если у провайдера не pppoe, редактируем строку, в ином случае пропускаем это исправление.
 ```bash
 IFACE_WAN=ppp0
 ```
@@ -169,35 +196,6 @@ IFACE_LAN="br0 br1 ezcfg0"
 ```
 
 Если закончили править, сохраняем CTRL+S, затем CTRL+X для выхода.
-
-### 15. (обновляемый пункт) Далее выбираем, что будем ускорять:
-
-#### Если необходимо ускорить только youtube, загружаем:
-```shell
-cd /opt/zapret/ipset
-curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/youtube/zapret-hosts-user.txt
-```
-
-#### Если необходимо ускорить youtube и соц. сети f, i, t(x):
-```shell
-cd /opt/zapret/ipset
-curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/yfit/zapret-hosts-user.txt
-```
-
-#### Если необходимо ускорить все что можно, то:
-```shell
-cd /opt/zapret/ipset
-curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/blacklist-russia/zapret-hosts-user.txt
-```
-
-### 16. Перезагружаем entware(openwrt) командой ниже:
-```shell
-/opt/etc/init.d/rc.unslung restart
-```
-
-## Готово, проверяем.
-
-
 
 ### Если не заработало, открываем снова конфиг:
 ```shell
