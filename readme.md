@@ -83,9 +83,9 @@ cd zapret
 
 ### 5. Далее (будут предупреждать и спрашивать, продолжать ли установку, отвечаем Y, затем enter и так 3 раза).
 
-### 6. Далее (будут много о чем спрашивать, везде нажимаем ENTER, пока не увидим надпись "press enter to continue", а затем снова жмем ENTER).
+### 6. Далее (необходимо выбирать варианты для построения вашего конфига, но это бессмысленно, так как на 14 шаге вы все равно загружаете мой конфиг, который при желании конечно, можно будет отведактировать позже, поэтому везде нажимаем ENTER, пока не увидим надпись "press enter to continue", а затем снова жмем ENTER).
 
-### 7. Удаляем ненужное:
+### 7. Удаляем ненужное из временной папки:
 ```shell
 rm -rf /opt/tmp/*
 ```
@@ -123,7 +123,7 @@ curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/
 chmod +x /opt/etc/init.d/S00fix
 ```
 
-### 14. (обновляемый пункт) Загружаем готовый конфиг Zapret, подходит для большинста провайдеров с pppoe (Тестировался на Ростелеком, Дом.ру):
+### 14. (обновляемый пункт) Загружаем готовый конфиг Zapret, подходит для большинста провайдеров с pppoe (Тестировался на Ростелеком, Дом.ру, ИСС, Annex.PRO, МТС):
 ```shell
 cd /opt/zapret
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret/config
@@ -148,7 +148,7 @@ cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/yfit/zapret-hosts-user.txt
 ```
 
-#### Если необходимо ускорить все что можно, то:
+#### Если необходимо ускорить более 160к доменов:
 ```shell
 cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/blacklist-russia/zapret-hosts-user.txt
@@ -166,6 +166,11 @@ curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/host
 ```
 
 ## Готово, проверяем.
+
+### Скорость Youtube:
+```shell
+curl --connect-to ::speedtest.selectel.ru https://manifest.googlevideo.com/100MB -k -o/dev/null
+```
 
 ## P.S.:
 
