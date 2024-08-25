@@ -24,9 +24,9 @@ Keenetic в курсе о [проблеме](https://forum.keenetic.com/topic/18
 
 ## Подготовка.
 
-(обязательно) Необходимо настроить DоT вне зависимости от провайдера, согласно инструкции [Прокси-серверы DNS-over-TLS и DNS-over-HTTPS для шифрования DNS-запросов](https://help.keenetic.com/hc/ru/articles/360007687159), или сделать как на скриншоте ниже.
+(обязательно) Необходимо настроить DоT вне зависимости от провайдера, согласно инструкции [Прокси-серверы DNS-over-TLS и DNS-over-HTTPS для шифрования DNS-запросов](https://help.keenetic.com/hc/ru/articles/360007687159).
 <details>
-    <summary>Советую сделать как тут</summary>
+    <summary>Обязательно привести настройки DNS к виду как на скриншоте</summary>
     
 ![DoT](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/images/DoT.png)
     
