@@ -187,6 +187,11 @@ curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/host
 curl --connect-to ::speedtest.selectel.ru https://manifest.googlevideo.com/100MB -k -o/dev/null
 ```
 
+### Проверить ресурс:
+```shell
+curl https://play.google.com -I
+```
+
 ## P.S.:
 
 #### Чтобы узнать имя внешнего сетевого интерфейса (WAN) на роутере, воспользуйтесь командой ifconfig, которая выведет все сетевые интерфейсы в системе.
