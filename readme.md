@@ -135,7 +135,7 @@ cd /opt/zapret
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret_alt/config
 ```
 
-#### Упращенный
+#### Упрощенный
 ```shell
 cd /opt/zapret
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret_lite/config
