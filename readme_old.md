@@ -517,76 +517,62 @@ ytimg.l.google.com
 reboot
 ```
 
-## Проверяем ютуб на каком нибудь 8K ролике! Между прочим даже с таким способом будет автоматический обход и других "очень медленных" сайтов, но немного иначе.
+## P.S.:
 
-## Альтенативный способ: (Не рекомендуется для роутеров с ОЗУ менее 256мб. В данный момент если находимся на этом этапе, файл закрываем CTRL+X N)
-```shell
-nano /opt/zapret/ipset/zapret-hosts-user.txt
+### Если у провайдера не pppoe, редактируем строку, в ином случае пропускаем это исправление.
+```bash
+IFACE_WAN=ppp0
 ```
 
-### Качаем файл по ссылке ниже с доменами [zapret-hosts-user.txt](https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/docs/zapret-hosts-user.txt) и копируем файл с заменой по пути opkg\zapret\ipset\zapret-hosts-user.txt
-[zapret-hosts-user.txt](https://github.com/nikrays/Zapret-on-Keenetic/blob/50b0e9fa87b7e2628dda4d7629d56d1d75277566/docs/zapret-hosts-user.txt)
-
-### Перезагружаемся командой reboot.
+#### Для начала узнаем имя внешнего сетевого интерфейса (WAN) на роутере. Его можно узнать воспользовавшись командой ifconfig, которая выведет все сетевые интерфейсы в системе. Просто находим тот интерфейс, у которого будет ваш внешний IP адрес. В моем случае – это ppp0, в вашем же, если у вам провайдер выдает адрес по статике или DHCP, значит у вас eth3. Запоминаем.
 ```shell
-reboot
+ifconfig
 ```
 
-## Проверяем наболевшие социальные сети и тд.)
-
-
-
-### Если не заработало, открываем снова конфиг
+#### Правим конфиг Zapret.
 ```shell
 nano /opt/zapret/config
 ```
 
-### Обращаем внимание на строку:
+#### Прописываем интерфейс провайдера в строке IFACE_WAN=ваш интерфейс, например:
+```bash
+IFACE_WAN=eth3
+```
+
+#### Также можно прописать несколько используемых WAN интерфейсов через пробел, например:
+```bash
+IFACE_WAN="eth3 usb0"
+```
+
+#### (опционально, надо проверить) Если необходимо направить трафик не на всю сеть, а например только гостевую сеть, vlan, опеределенный порт или l2tp, уберите решетку в #IFACE_LAN=eth0 и укажите 1 или несколько интерфейсов (узнать какой интерфейс за что отвечает, можно все той же командой ifconfig):
+```bash
+IFACE_LAN=br0
+```
+#### Или br0 - это бридж основной сети, br1 - vlan гостевой сети, ezcfg0 - частный VPN сервер IKEv2/IPsec и т.д.:
+```bash
+IFACE_LAN="br0 br1 ezcfg0"
+```
+
+Если закончили править, сохраняем CTRL+S, затем CTRL+X для выхода.
+
+### Если не заработало, открываем снова конфиг:
+```shell
+nano /opt/zapret/config
+```
+
+#### Обращаем внимание на:
 ```bash
 NFQWS_OPT_DESYNC="--dpi-desync=fake,disorder2 --dpi-desync-split-pos=1 --dpi-desync-ttl=0 --dpi-desync-fooling=md5sig,badsum --dpi-desync-repeats=6 --dpi-desync-any-protocol --dpi-desync-cutoff=d4" 
 ```
 
-### Можно попробовать менять значение ttl от 0 до 12 или же сменить значения dpi-desync с split2 на disorber2 ниже несколько примеров:
+#### Ниже готовые удачные конфигурации:
 ```bash
-NFQWS_OPT_DESYNC="--dpi-desync=split2"
-```
-```bash
-NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=2 --dpi-desync-fooling=badsum"
-```
-```bash
-NFQWS_OPT_DESYNC="--dpi-desync=fake,disorder2 --dpi-desync-ttl=3 --dpi-desync-fooling=badsum"
-```
-```bash
-NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=badsum"
-```
-```bash
-NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=3 --dpi-desync-fooling=badsum"
-```
-```bash
-NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-fooling=md5sig"
-```
-```bash
-NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=2 --dpi-desync-split-pos=1 --wssize 1:6 --dpi-desync-fooling=md5sig"
+NFQWS_OPT_DESYNC="--dpi-desync=fake,disorder2 --dpi-desync-split-pos=1 --dpi-desync-ttl=6 --dpi-desync-fooling=md5sig,badsum"
 ```
 
-### После этого исполняем все что ниже и так по кругу, пока не добьетесь результата
-
-### Очистка таблицы ip адресов
+#### После этого перезагружаем entware(openwrt) и так до тех пор, пока не достигните результата.
 ```shell
-/opt/zapret/ipset/clear_lists.sh
-```
-
-### Получить новые данные списка хостов
-```shell
-/opt/zapret/ipset/get_user.sh
-```
-### Получить новые данные конфига
-```shell
-/opt/zapret/ipset/get_config.sh
-```
-### Перезагрузить Zapret
-```shell
-/opt/zapret/init.d/sysv/zapret restart
+/opt/etc/init.d/rc.unslung restart
 ```
 
 ### Также можно воспользоваться автоподбором. Автоподбор параметров, у каждого могут быть индивидуальными
@@ -597,7 +583,8 @@ NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=6 --dpi-desync-ttl6=
 /opt/zapret/blockcheck.sh | tee /opt/zapret/blockcheck.txt
 ```
 
-Проанализируйте какие методы дурения DPI работают, в соответствии с ними настройте /opt/zapret/config.
+<details>
+    <summary>Проанализируйте какие методы дурения DPI работают, в соответствии с ними настройте /opt/zapret/config.</summary>
 
 Имейте в виду, что у провайдеров может быть несколько DPI или запросы могут идти через разные каналы
 по методу балансировки нагрузки. Балансировка может означать, что на разных ветках разные DPI или
@@ -615,32 +602,55 @@ Blockcheck имеет 3 уровня сканирования.
 Цель режима quick - максимально быстро найти хоть что-то работающее.
 standard дает возможность провести исследование как и на что реагирует DPI в плане методов обхода.
 force дает максимум проверок даже в случаях, когда ресурс работает без обхода или с более простыми стратегиями.
+</details>
 
-## P.S.:
+## Полезные команды.
 
-### Автохостлист находится по адресу (Сюда идет пополнение доменов на те к которым вы пытаетесь достучаться, например рутор, чуть позже он автоматически туда попадает):
+#### Автоматический список доменов:
 ```shell
 nano /opt/zapret/ipset/zapret-hosts-auto.txt
 ```
 
-### Удаленное подключение по ssh к Keenetic если вы под admin, в консоли вводим:
+#### Ручной список доменов:
 ```shell
-exec sh
+nano /opt/zapret/ipset/zapret-hosts-user.txt
 ```
 
-### Запустить NFQWS и проверять работоспособность с помощью команды:
+#### Запустить Zapret:
 ```shell
 /opt/zapret/init.d/sysv/zapret start
 ```
 
-### Для перезагрузки NFQWS использовать команду:
+#### Перезагрузить Zapret:
 ```shell
 /opt/zapret/init.d/sysv/zapret restart
 ```
 
-### Для остановки NFQWS использовать команду:
+#### Остановить Zapret:
 ```shell
 /opt/zapret/init.d/sysv/zapret stop
 ```
 
-#zapret #bol-van #keenetic #youtube #ускорение #ростелеком
+### Сделать backup entware(openwrt) с Zapret:
+```shell
+cd /opt
+tar cvzf /opt/backup-`date -I`.tar.gz *
+```
+
+### Для очистки содержимого накопителя, чтобы например, попробовать все заново:
+```shell
+rm -rf /opt/*
+```
+
+### Чтобы восстановить backup entware(openwrt) с Zapret, достаточно снова создать папку install и загрузить в нее ранее созданный backup, после чего переопределить накопитель в менеджере OPKG выбрав "не выбран" затем снова выбрать "накопитель", ждем когда закончится процесс развертывания. Далее вставляем скрипт ниже в параметр "Сценарий initrc" в менеджере OPKG, после перезагружаем роутер.
+```shell
+/opt/etc/init.d/rc.unslung
+```
+
+### Обновить репозиторий Zapret можно выполнив эту команду (разработчик в последнее время активизировался и регулярно правит код):
+```shell
+cd /opt/zapret
+git pull --rebase --autostash
+```
+
+#zapret #bol-van #keenetic #youtube #ускорение #ростелеком #исс #дом.ру #мтс
