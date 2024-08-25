@@ -55,9 +55,9 @@ exec sh
 
 ### Если видим BusyBox v1.36.1 (XXXX-XX-XX xx:xx:xx UTC) built-in shell (ash), переходим к установке, левой кнопкой мыши нажимая на квадратики копируем код, а правой вставляем в putty.
 
-## [!Эксперементальный упрощенный способ установки.](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/readme_ez.md)
+## [Эксперементальный упрощенный способ установки.](https://github.com/nikrays/Zapret-on-Keenetic/blob/master/readme_ez.md)
 
-## Установка.
+## Классическая установка.
 
 ### 1. Обновляем пакеты opkg.
 ```shell
