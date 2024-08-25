@@ -124,7 +124,7 @@ curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/
 chmod +x /opt/etc/init.d/S00fix
 ```
 
-### 14. (обновляемый пункт) Загружаем один из готовых конфигов Zapret, подходит для большинста провайдеров с pppoe (Тестировался на Ростелеком, Дом.ру, ИСС, Annex.PRO, МТС):
+### 14. (обновляемый пункт) Загружаем один из готовых конфигов Zapret, подходит для большинста провайдеров с pppoe (Ростелеком, ИСС, Annex.PRO, МТС, Дом.ру), а также с dhcp и через модемы:
 #### Основной
 ```shell
 cd /opt/zapret
@@ -294,4 +294,4 @@ cd /opt/zapret
 git pull --rebase --autostash
 ```
 
-#zapret #bol-van #keenetic #youtube #ускорение #ростелеком #исс #дом.ру #мтс
+#zapret #bol-van #keenetic #youtube #ускорение #ростелеком #исс #annex.pro #мтс #дом.ру
