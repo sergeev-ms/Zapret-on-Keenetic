@@ -12,6 +12,7 @@ cd /opt/tmp
 git clone --depth=1 https://github.com/bol-van/zapret.git
 cd zapret
 ./install_easy.sh
+
 ```
 Далее будут предупреждать и спрашивать, продолжать ли установку, отвечаем Y, затем enter и так 3 раза.
 
@@ -30,6 +31,7 @@ cd /opt/etc/init.d
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/etc/init.d/S00fix
 chmod +x /opt/etc/init.d/S00fix
 rm -rf /opt/tmp/*
+
 ```
 
 ## 3. Настройка пользователя.
