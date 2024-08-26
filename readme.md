@@ -303,4 +303,10 @@ cd /opt/zapret
 git pull --rebase --autostash
 ```
 
+#### Точечная фильтрация сайтов для определенных устройств настраивается по этой инструкции:
+[Установка AdGuard Home на роутеры Keenetic](https://dartraiden.github.io/AdGuard-Home-Keenetic/)
+
+#### Получить доступ к ИИ-сервисам, включая (Microsoft Copilot, ChatGPT, Google Gemini и другие), а также выполнять установку антивирусов и их обновлений, инсайдерских сборок и обновлений Windows без использования VPN ниже:
+[Как настроить Comss.one DNS (DNS-over-HTTPS) на роутерах Keenetic](https://www.comss.ru/page.php?id=13072)
+
 #zapret #bol-van #keenetic #youtube #ускорение #ростелеком #исс #annex.pro #мтс #дом.ру
