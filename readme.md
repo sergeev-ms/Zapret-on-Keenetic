@@ -297,10 +297,8 @@ rm -rf /opt/*
 ```shell
 cd /opt/zapret
 git reset --hard HEAD
-```
-```shell
-cd /opt/zapret
 git pull --rebase --autostash
+
 ```
 
 #### Точечная фильтрация сайтов для определенных устройств настраивается по этой инструкции:
