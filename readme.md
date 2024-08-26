@@ -296,6 +296,10 @@ rm -rf /opt/*
 ### Обновить репозиторий Zapret можно выполнив эту команду (разработчик в последнее время активизировался и регулярно правит код):
 ```shell
 cd /opt/zapret
+git reset --hard HEAD
+```
+```shell
+cd /opt/zapret
 git pull --rebase --autostash
 ```
 
