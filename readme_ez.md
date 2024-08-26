@@ -87,7 +87,7 @@ cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/zapret-hosts-user-exclude.txt
 ```
 
-## 4. Завершение и тестирование.
+## 4. Перезагрузка и проверка.
 ```shell
 /opt/etc/init.d/rc.unslung restart
 curl --connect-to ::speedtest.selectel.ru https://manifest.googlevideo.com/100MB -k -o/dev/null
