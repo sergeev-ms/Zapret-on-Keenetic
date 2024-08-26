@@ -298,6 +298,7 @@ rm -rf /opt/*
 cd /opt/zapret
 git reset --hard HEAD
 git pull --rebase --autostash
+/opt/etc/init.d/rc.unslung restart
 
 ```
 
