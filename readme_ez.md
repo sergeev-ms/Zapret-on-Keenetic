@@ -65,26 +65,22 @@ curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/
 
 #### Если необходимо ускорить только youtube, загружаем:
 ```shell
-cd /opt/zapret/ipset
-curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/youtube/zapret-hosts-user.txt
+curl -0 --output-dir /opt/zapret/ipset https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/youtube/zapret-hosts-user.txt -o zapret-hosts-user.txt
 ```
 
 #### Если необходимо ускорить youtube и соц. сети f, i, t(x):
 ```shell
-cd /opt/zapret/ipset
-curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/yfit/zapret-hosts-user.txt
+curl -0 --output-dir /opt/zapret/ipset https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/yfit/zapret-hosts-user.txt -o zapret-hosts-user.txt
 ```
 
 #### Если необходимо ускорить более 160к доменов:
 ```shell
-cd /opt/zapret/ipset
-curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/blacklist-russia/zapret-hosts-user.txt
+curl -0 --output-dir /opt/zapret/ipset https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/blacklist-russia/zapret-hosts-user.txt -o zapret-hosts-user.txt
 ```
 
 #### Загружаем список исключений с доменами, которые могут работать некорректно (по желанию, например у кого проблемы с входом в сбербанк):
 ```shell
-cd /opt/zapret/ipset
-curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/zapret-hosts-user-exclude.txt
+curl -0 --output-dir /opt/zapret/ipset https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/zapret-hosts-user-exclude.txt -o zapret-hosts-user-exclude.txt
 ```
 
 ## 4. Перезагрузка и проверка.
