@@ -163,7 +163,7 @@ cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/yfit/zapret-hosts-user.txt
 ```
 
-#### Если необходимо ускорить более 160к доменов:
+#### Если необходимо ускорить более 100к сайтов:
 ```shell
 cd /opt/zapret/ipset
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/hostlists/blacklist-russia/zapret-hosts-user.txt
