@@ -125,25 +125,25 @@ chmod +x /opt/etc/init.d/S00fix
 ```
 
 ### 14. (обновляемый пункт) Загружаем один из готовых конфигов Zapret, подходит для большинста провайдеров с pppoe (Ростелеком, ИСС, Annex.PRO, МТС, Дом.ру), а также с dhcp и через модемы:
-#### Основной
+#### Основной (Работает на Ростелеком лучший выбор, ИСС не работает контент на фейсбук, Annex.PRO, МТС тестирование, Дом.ру тестирование)
 ```shell
 cd /opt/zapret
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret/config
 ```
 
-#### Альтернативный
+#### Альтернативный (Работает на Ростелеком, ИСС лучший выбор, МТС тестирование, Дом.ру тестирование)
 ```shell
 cd /opt/zapret
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret_alt/config
 ```
 
-#### Упрощенный
+#### Упрощенный (Работает на Ростелеком, ИСС, МТС тестирование, Дом.ру тестирование)
 ```shell
 cd /opt/zapret
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret_lite/config
 ```
 
-#### Тестовый
+#### Тестовый (Эксперементально выясняются новые стратегии для разных операторов)
 ```shell
 cd /opt/zapret
 curl -O https://raw.githubusercontent.com/nikrays/Zapret-on-Keenetic/master/opt/zapret_test/config
