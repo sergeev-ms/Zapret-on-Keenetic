@@ -72,7 +72,7 @@ NFQWS_OPT_DESYNC="--dpi-desync=fake,disorder2 --dpi-desync-split-pos=1 --dpi-des
 #NFQWS_OPT_DESYNC_HTTPS=
 #NFQWS_OPT_DESYNC_HTTP6=
 #NFQWS_OPT_DESYNC_HTTPS6=
-NFQWS_OPT_DESYNC_QUIC="--dpi-desync=fake,disorder2 --dpi-desync-repeats=6 --dpi-desync-ttl=0 --dpi-desync-cutoff=d4 --dpi-desync-fooling=md5sig,badsum"
+NFQWS_OPT_DESYNC_QUIC="--dpi-desync=fake,disorder2 --dpi-desync-repeats=6 --dpi-desync-split-pos=1 --dpi-desync-ttl=6 --dpi-desync-fooling=md5sig,badseq,badsum"
 #NFQWS_OPT_DESYNC_QUIC6=
 
 # CHOOSE TPWS DAEMON OPTIONS. run "tpws/tpws --help" for option list
