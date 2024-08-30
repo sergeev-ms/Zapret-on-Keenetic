@@ -18,16 +18,16 @@ DESC=anti-zapret
 do_start()
 {
 
-    if lsmod | grep "xt_multiport " &> /dev/null ;  then
-		echo "xt_multiport.ko is already loaded"
-    else
-        if insmod /lib/modules/$(uname -r)/xt_multiport.ko &> /dev/null; then
-			echo "iptable_raw.ko loaded"
-        else
-			echo "Cannot find xt_multiport.ko kernel module, aborting"
-			exit 1
-        fi
-	fi
+#    if lsmod | grep "xt_multiport " &> /dev/null ;  then
+#		echo "xt_multiport.ko is already loaded"
+#    else
+#        if insmod /lib/modules/$(uname -r)/xt_multiport.ko &> /dev/null; then
+#			echo "iptable_raw.ko loaded"
+#        else
+#			echo "Cannot find xt_multiport.ko kernel module, aborting"
+#			exit 1
+#        fi
+#	fi
      
 	if lsmod | grep "xt_connbytes " &> /dev/null ;  then
         echo "xt_connbytes.ko is already loaded"
