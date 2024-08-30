@@ -67,12 +67,14 @@ MODE_FILTER=hostlist
 # CHOOSE NFQWS DAEMON OPTIONS for DPI desync mode. run "nfq/nfqws --help" for option list
 DESYNC_MARK=0x40000000
 DESYNC_MARK_POSTNAT=0x20000000
-NFQWS_OPT_DESYNC="--dpi-desync=fake,disorder2 --dpi-desync-split-pos=1 --dpi-desync-ttl=0 --dpi-desync-fooling=md5sig,badseq,badsum"
+NFQWS_OPT_DESYNC="--dpi-desync=fake,split2 --dpi-desync-ttl=4 --dpi-desync-ttl6=2 --dpi-desync-split-pos=1 --wssize 1:6 --dpi-desync-fooling=md5sig"
+# NFQWS_OPT_DESYNC="--dpi-desync=fake,disorder2 --dpi-desync-split-pos=1 --dpi-desync-ttl=0 --dpi-desync-fooling=md5sig,badseq,badsum"
 #NFQWS_OPT_DESYNC_HTTP=
 #NFQWS_OPT_DESYNC_HTTPS=
 #NFQWS_OPT_DESYNC_HTTP6=
 #NFQWS_OPT_DESYNC_HTTPS6=
-NFQWS_OPT_DESYNC_QUIC="--dpi-desync=fake,disorder2 --dpi-desync-repeats=6 --dpi-desync-split-pos=1 --dpi-desync-ttl=0 --dpi-desync-fooling=md5sig,badseq,badsum"
+NFQWS_OPT_DESYNC_QUIC="--dpi-desync=fake,split2 --dpi-desync-ttl=4 --dpi-desync-ttl6=2 --dpi-desync-split-pos=1 --wssize 1:6 --dpi-desync-fooling=md5sig"
+# NFQWS_OPT_DESYNC_QUIC="--dpi-desync=fake,disorder2 --dpi-desync-repeats=6 --dpi-desync-split-pos=1 --dpi-desync-ttl=0 --dpi-desync-fooling=md5sig,badseq,badsum"
 #NFQWS_OPT_DESYNC_QUIC6=
 
 # CHOOSE TPWS DAEMON OPTIONS. run "tpws/tpws --help" for option list
@@ -93,7 +95,7 @@ FLOWOFFLOAD=donttouch
 # it's possible to specify multiple interfaces like this : IFACE_LAN="eth0 eth1 eth2"
 # if IFACE_WAN6 is not defined it take the value of IFACE_WAN
 IFACE_LAN=br0
-IFACE_WAN="ppp0 eth2 eth2.1 eth2.2 eth2.3 eth3 nwg3 usb0 usb1"
+IFACE_WAN="ppp0 eth2 eth2.1 eth2.2 eth2.3 eth3 eth2.4 nwg3 usb0 usb1"
 #IFACE_WAN6="ipsec0 wireguard0 he_net"
 
 # should start/stop command of init scripts apply firewall rules ?
